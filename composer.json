@@ -1,0 +1,16 @@
+{
+    "name": "huy_vq/ez-code",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "HuyVq\\EzCode\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "VU QUOC HUY",
+            "email": "vqh8124@gmail.com"
+        }
+    ],
+    "require": {}
+}

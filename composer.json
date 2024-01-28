@@ -3,7 +3,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "HuyVq\\EzCode\\": "src/"
+            "EzCode\\": "src/"
         }
     },
     "authors": [
@@ -12,5 +12,10 @@
             "email": "vqh8124@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "phroute/phroute": "^2.2",
+        "eftec/bladeone": "^4.9",
+        "bramus/router": "~1.6",
+        "laravel/installer": "~1.1"
+    }
 }

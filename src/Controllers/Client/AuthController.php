@@ -26,7 +26,7 @@ class AuthController extends Controller
                 if ($user['email'] == $email && $user['password'] == $password) {
                     $_SESSION['user'] = $user;
                     var_dump($_SESSION['user']);
-                    header("Location:" . route('client/'));
+                    header("Location:" . route('/'));
                 }
             }
         }
@@ -42,9 +42,16 @@ class AuthController extends Controller
             $rePassword = $_POST['re-password'];
             if ($password == $rePassword) {
                 $this->user->insert($email, $password,$name);
-                header("Location:".route('auth/login'));
+                header("Location:".route('/auth/login'));
             }
         }
         $this->renderViewsClient($this->folder . __FUNCTION__);
+    }
+
+    public function logout()
+    {
+        unset($_SESSION['user']);
+        header("Location:".route('/'));
+
     }
 }

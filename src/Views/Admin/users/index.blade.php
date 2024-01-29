@@ -88,7 +88,7 @@
                             </td>
                             <td>
                                 <button class="btn btn-danger">
-                                    <a href="{{ route('admin/users/'.$user['id'] .'/update/'.$user['status']) }}">
+                                    <a href="{{ route('/admin/users/'.$user['id'] .'/update/'.$user['status']) }}">
                                         {{ $user['status'] == 1 ? "Vô hiệu hoá" : "Kích hoạt" }}
                                     </a>
                                 </button>

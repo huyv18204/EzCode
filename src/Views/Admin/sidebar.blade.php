@@ -12,19 +12,19 @@
             </a>
         </li>
         <li class="">
-            <a href="{{route('admin/courses')}}">
+            <a href="{{route('/admin/courses')}}">
                 <i class='bx bxs-shopping-bag-alt'></i>
                 <span class="text">Quản lí khoá học</span>
             </a>
         </li>
         <li class="">
-            <a href="{{route('admin/categories')}}">
+            <a href="{{route('/admin/categories')}}">
                 <i class='bx bxs-doughnut-chart'></i>
                 <span class="text">Quản lí danh mục</span>
             </a>
         </li>
         <li class="">
-            <a href="{{route('admin/users')}}">
+            <a href="{{route('/admin/users')}}">
                 <i class='bx bxs-user' undefined ></i>
                 <span class="text">Quản lí khách hàng</span>
             </a>

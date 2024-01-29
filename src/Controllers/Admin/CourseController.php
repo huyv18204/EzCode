@@ -55,7 +55,7 @@ class CourseController extends Controller
             } else {
                 echo "Thông tin file không hợp lệ.";
             }
-            header("location:".route('admin/courses'));
+            header("location:".route('/admin/courses'));
         }
 
         $this->renderViewsAdmin($this->folder . __FUNCTION__);
@@ -93,7 +93,7 @@ class CourseController extends Controller
 
             $courseCategory = new CourseCategory('course_categories');
             $courseCategory->updateCourseCategory($id, $category_id);
-            header("location:".route('admin/courses'));
+            header("location:".route('/admin/courses'));
 
         }
         $this->renderViewsAdmin($this->folder . __FUNCTION__,$data);
@@ -102,7 +102,7 @@ class CourseController extends Controller
     function delete($id)
     {
         $this->course->delete($id);
-        header("location:".route('admin/courses'));
+        header("location:".route('/admin/courses'));
     }
 
 }

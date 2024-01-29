@@ -45,7 +45,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="{{ route('admin/categories/create') }}" class="btn-download">
+            <a href="{{ route('/admin/categories/create') }}" class="btn-download">
                 <i class='bx bx-plus' style='color:#ffffff'></i>
                 <span class="text">Thêm danh mục</span>
             </a>
@@ -75,8 +75,8 @@
                         <td><img src="src/Uploads/<?= $category['image'] ?>" alt=""></td>
                         <th>
                             <a class="btn btn-primary"
-                               href="{{ route('admin/categories/'.$category['id'] .'/update') }}" role="button">Sửa</a>
-                            <a class="btn btn-danger" href="{{ route('admin/categories/'.$category['id'] .'/delete') }}"
+                               href="{{ route('/admin/categories/'.$category['id'] .'/update') }}" role="button">Sửa</a>
+                            <a class="btn btn-danger" href="{{ route('/admin/categories/'.$category['id'] .'/delete') }}"
                                role="button">Xoá</a>
                         </th>
                     </tr>

@@ -82,7 +82,7 @@
                         </div>
                         <div class="mb-3 d-flex justify-content-end">
                             <button class="btn btn-primary me-3">
-                                <a href="?action=show_category" class="text-reset text-decoration-none">Quay lại</a></button>
+                                <a href="{{ route('/admin/categories/') }}" class="text-reset text-decoration-none">Quay lại</a></button>
                             <button name="btn-edit" class="btn btn-success">Cập nhật</button>
                         </div>
                     </div>

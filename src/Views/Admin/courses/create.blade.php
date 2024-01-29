@@ -104,7 +104,7 @@
                             </div>
                             <div class="mb-3 d-flex justify-content-end">
                                 <button class="btn btn-primary me-3">
-                                    <a href="{{ route('admin/courses/') }}" class="text-reset text-decoration-none">Quay lại</a></button>
+                                    <a href="{{ route('/admin/courses/') }}" class="text-reset text-decoration-none">Quay lại</a></button>
                                 <button name="btn-add" class="btn btn-success">Thêm</button>
                             </div>
                         </div>

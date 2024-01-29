@@ -28,6 +28,6 @@ class UserController extends Controller
     function update($id,$status)
     {
         $this->user->update($id,$status);
-        header("Location: ".route('admin/users'));
+        header("Location: ".route('/admin/users'));
     }
 }

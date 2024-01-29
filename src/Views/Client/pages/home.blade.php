@@ -20,7 +20,7 @@
     <div class="header-class">
         <header class="header d-flex justify-content-between align-items-center">
             <div class="logo ms-4">
-                <a href="{{ route('client/')}}"> <img src="assets/imgs/f8-icon.18cd71cfcfa33566a22b.png" alt=""></a>
+                <a href="{{ route('/')}}"> <img src="assets/imgs/f8-icon.18cd71cfcfa33566a22b.png" alt=""></a>
                 <span class="ms-3 fw-bold">Học lập trình để đi làm</span>
             </div>
             <div class="search">
@@ -29,25 +29,39 @@
                     <input type="text" class="ms-2" placeholder="Tìm kiếm khoá học...">
                 </div>
             </div>
-            <div class=" me-3 d-flex justify-content-center align-items-center btn-function">
+            <div class=" me-5 d-flex justify-content-center align-items-center btn-function">
                 @if(isset($_SESSION['user']))
-                    <a style="font-size: 14px; font-weight: bold;" href="" class="my-course text-reset">Khoá học của
-                        tôi</a>
-                    @if(empty($_SESSION['user']['image'])
-                        )
-                        <a href="" class="text-reset ms-4"><img style="width: 35px; border-radius: 30px;"
-                                                                src="assets/imgs/user.png" alt=""></a>
+                    <div id="showCourse" href="" class="my-course text-reset">Khoá học của tôi</div>
+                    <div id="courseList"">
+                        <div class="d-flex justify-content-between mt-2">
+                            <span>Khoá học của tôi</span>
+                            <a href="">Xem tất cả</a>
+                        </div>
+                        <a class="d-flex mt-3 course-component-list" href="">
+                            <div><img src="assets/imgs/62f13d2424a47.png" alt=""></div>
+                            <div class="ms-4 course-title-list">NodeJS Express</div>
+                        </a>
+
+                    </div>
+                    @if(empty($_SESSION['user']['image']))
+                        <div id="showButton" href="" class="text-reset ms-4"><img src="assets/imgs/user.png" alt=""></div>
+                        <div id="categoryList"">
+                            <li><a href="">Trang cá nhân</a></li>
+                            <li><a href="">Cài Đặt</a></li>
+                            <li><a href="{{route('/auth/logout')}}">Đăng Xuất</a></li>
+                        </div>
                     @else
-                        <a href="" class="text-reset ms-4"><img style="width: 35px; border-radius: 30px;"
-                                                                src="{{$_SESSION['user']['image']}}" alt=""></a>
+                        <div id="showButton" href="" class="text-reset ms-4"><img src="{{$_SESSION['user']['image']}}" alt=""></div>
+                        <div id="categoryList">
+                            <li><a href="">Trang cá nhân</a></li>
+                            <li><a href="">Cài Đặt</a></li>
+                            <li><a href="{{route('/auth/logout')}}">Đăng Xuất</a></li>
+                        </div>
                     @endif
-                    <a href="" class="text-reset ms-4"><img style="width: 35px; border-radius: 30px;"
-                                                            src="{{empty($_SESSION['user']['image']) ? $_SESSION['user']['image'] : 'asset.imgs.user'}}"
-                                                            alt=""></a>
                 @else
-                    <a href=" {{ route('auth/login')}}" class="text-reset">Đăng nhập</a>
+                    <a href=" {{ route('/auth/login')}}" class="text-reset">Đăng nhập</a>
                     <a class="d-flex justify-content-center align-items-center ms-3 btn-register"
-                       href="{{ route('auth/register')}}">Đăng kí</a>
+                       href="{{ route('/auth/register')}}">Đăng kí</a>
                 @endif
             </div>
         </header>
@@ -187,5 +201,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="assets/javascript/slick.js"></script>
+<script src="assets/javascript/main.js"></script>
 
 </html>

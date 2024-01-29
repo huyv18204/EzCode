@@ -258,3 +258,74 @@
     text-decoration: underline;
 }
 /* ======== end form login======= */
+
+/* ======== menu user ======= */
+#showButton{
+
+    position: relative;
+}
+
+#categoryList li{
+    list-style: none;
+    margin: 5px 0 10px 0;
+}
+#categoryList a{
+    font-size: 14px;
+    color: #666;
+}
+#categoryList a:hover{
+    font-size: 14px;
+    color: #000;
+}
+#categoryList{
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 39px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 -4px 32px rgba(0,0,0,.2);
+    padding: 10px 20px 10px 20px;
+    width: 210px;
+}
+#showButton img{
+    width: 35px;
+    border-radius: 30px;
+}
+/* ======== end menu user======= */
+
+/* ======== list my course======= */
+#courseList{
+    position: absolute;
+    top: 60px;
+    right: 95px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 -4px 32px rgba(0,0,0,.2);
+    padding: 10px 20px 10px 20px;
+    width: 400px;
+    min-height: 150px;
+    display: none;
+}
+
+#courseList img{
+    width: 130px;
+}
+
+.course-title-list{
+    font-size: 17px;
+    color: #000;
+}
+.course-component-list{
+    padding: 10px;
+    border-radius: 10px;
+}
+.course-component-list:hover{
+    background-color: #e7ebed;
+
+}
+#showCourse{
+    font-size: 14px;
+    font-weight: bold;
+}
+/* ======== list my course======= */

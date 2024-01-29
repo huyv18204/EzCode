@@ -56,7 +56,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="{{ route('admin/courses/create') }}" class="btn-download">
+            <a href="{{ route('/admin/courses/create') }}" class="btn-download">
                 <i class='bx bx-plus' style='color:#ffffff'></i>
                 <span class="text">Thêm khoá học</span>
             </a>
@@ -101,15 +101,15 @@
                             <td>{{ $course['discount'] }}</td>
                             <th>
                                 <button class="btn btn-primary">
-                                    <a href="{{ route('admin/courses/'.$course['course_code'] .'/update') }}">Sửa</a>
+                                    <a href="{{ route('/admin/courses/'.$course['course_code'] .'/update') }}">Sửa</a>
                                 </button>
                                 <button class="btn btn-danger">
-                                    <a href="{{ route('admin/courses/'.$course['course_code'] .'/delete') }}">Xoá</a>
+                                    <a href="{{ route('/admin/courses/'.$course['course_code'] .'/delete') }}">Xoá</a>
                                 </button>
                             </th>
 {{--                            <th>--}}
-{{--                                <a class="btn btn-primary" href="{{ route('admin/courses/'.$course['course_code'] .'/update') }}" role="button">Sửa</a>--}}
-{{--                                <a class="btn btn-danger" href="{{ route('admin/courses/'.$course['course_code'] .'/delete') }}" role="button">Xoá</a>--}}
+{{--                                <a class="btn btn-primary" href="{{ route('/admin/courses/'.$course['course_code'] .'/update') }}" role="button">Sửa</a>--}}
+{{--                                <a class="btn btn-danger" href="{{ route('/admin/courses/'.$course['course_code'] .'/delete') }}" role="button">Xoá</a>--}}
 {{--                            </th>--}}
 
                         </tr>

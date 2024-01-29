@@ -7,9 +7,9 @@ use EzCode\Controllers\Client\HomeController;
 use EzCode\Controllers\Client\AuthController;
 
 $router = new Router();
-$router->mount('/client', function () use ($router) {
+//$router->mount('/client', function () use ($router) {
     $router->get('/', HomeController::class . '@home');
-});
+//});
 $router->mount('/admin', function () use ($router) {
     $router->mount('/users', function () use ($router) {
         $router->get('/', UserController::class . '@index');
@@ -33,6 +33,7 @@ $router->mount('/admin', function () use ($router) {
 $router->mount('/auth',function () use ($router){
     $router->match('GET|POST', '/login', AuthController::class . '@login');
     $router->match('GET|POST', '/register', AuthController::class . '@register');
+    $router->get('/logout', AuthController::class . '@logout');
 });
 
 

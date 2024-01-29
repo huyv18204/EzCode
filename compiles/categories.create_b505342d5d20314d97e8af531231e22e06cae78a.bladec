@@ -86,7 +86,7 @@
  </div>
  <div class="mb-3 d-flex justify-content-end">
  <button class="btn btn-primary me-3">
- <a href="?action=show_course" class="text-reset text-decoration-none">Quay lại</a></button>
+ <a href="<?php echo \htmlentities(route('/admin/categories/')??'', ENT_QUOTES, 'UTF-8', false); ?>" class="text-reset text-decoration-none">Quay lại</a></button>
  <button name="btn-add" class="btn btn-success">Thêm</button>
  </div>
  </div>

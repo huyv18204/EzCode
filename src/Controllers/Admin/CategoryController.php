@@ -43,7 +43,7 @@ class CategoryController extends Controller
             } else {
                 echo "Thông tin file không hợp lệ.";
             }
-            header("location:" . route('admin/categories'));
+            header("location:" . route('/admin/categories'));
         }
 
         $this->renderViewsAdmin($this->folder . __FUNCTION__);
@@ -70,7 +70,7 @@ class CategoryController extends Controller
                 echo "Thông tin file không hợp lệ.";
             }
             $this->category->update($courseName, $description, $imageName, $id);
-            header("location:" . route('admin/categories'));
+            header("location:" . route('/admin/categories'));
         }
         $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
     }
@@ -78,6 +78,6 @@ class CategoryController extends Controller
     function delete($id)
     {
         $this->category->delete($id);
-        header("location:" . route('admin/categories'));
+        header("location:" . route('/admin/categories'));
     }
 }

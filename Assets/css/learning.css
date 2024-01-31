@@ -1,7 +1,8 @@
-*{
+* {
     padding: 0;
     margin: 0;
 }
+
 .menu {
     height: 65px;
     width: 100%;
@@ -10,7 +11,7 @@
     background-color: #29303b;
 }
 
-.menu>img {
+.menu > img {
     width: 42px;
     border-radius: 5px;
 }
@@ -20,9 +21,11 @@
     color: #fff;
     text-decoration: none;
 }
-.menu a:hover{
+
+.menu a:hover {
     color: #ffffff;
 }
+
 .course-video {
     min-height: 100%;
     padding-top: 65px;

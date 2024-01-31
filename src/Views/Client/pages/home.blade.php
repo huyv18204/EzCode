@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="{{route('/assets/css/style.css')}}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 </head>
 
@@ -20,7 +20,7 @@
     <div class="header-class">
         <header class="header d-flex justify-content-between align-items-center">
             <div class="logo ms-4">
-                <a href="{{ route('/')}}"> <img src="assets/imgs/f8-icon.18cd71cfcfa33566a22b.png" alt=""></a>
+                <a href="{{ route('/')}}"> <img src="{{route('/assets/imgs/f8-icon.18cd71cfcfa33566a22b.png')}}" alt=""></a>
                 <span class="ms-3 fw-bold">Học lập trình để đi làm</span>
             </div>
             <div class="search">
@@ -33,37 +33,38 @@
                 @if(isset($_SESSION['user']))
                     <div id="showCourse" href="" class="my-course text-reset">Khoá học của tôi</div>
                     <div id="courseList"">
-                        <div class="d-flex justify-content-between mt-2">
-                            <span>Khoá học của tôi</span>
-                            <a href="">Xem tất cả</a>
-                        </div>
-                        <a class="d-flex mt-3 course-component-list" href="">
-                            <div><img src="assets/imgs/62f13d2424a47.png" alt=""></div>
-                            <div class="ms-4 course-title-list">NodeJS Express</div>
-                        </a>
-
+                    <div class="d-flex justify-content-between mt-2">
+                        <span>Khoá học của tôi</span>
+                        <a href="">Xem tất cả</a>
                     </div>
-                    @if(empty($_SESSION['user']['image']))
-                        <div id="showButton" href="" class="text-reset ms-4"><img src="assets/imgs/user.png" alt=""></div>
-                        <div id="categoryList"">
-                            <li><a href="">Trang cá nhân</a></li>
-                            <li><a href="">Cài Đặt</a></li>
-                            <li><a href="{{route('/auth/logout')}}">Đăng Xuất</a></li>
-                        </div>
-                    @else
-                        <div id="showButton" href="" class="text-reset ms-4"><img src="{{$_SESSION['user']['image']}}" alt=""></div>
-                        <div id="categoryList">
-                            <li><a href="">Trang cá nhân</a></li>
-                            <li><a href="">Cài Đặt</a></li>
-                            <li><a href="{{route('/auth/logout')}}">Đăng Xuất</a></li>
-                        </div>
-                    @endif
-                @else
-                    <a href=" {{ route('/auth/login')}}" class="text-reset">Đăng nhập</a>
-                    <a class="d-flex justify-content-center align-items-center ms-3 btn-register"
-                       href="{{ route('/auth/register')}}">Đăng kí</a>
-                @endif
+                    <a class="d-flex mt-3 course-component-list" href="">
+                        <div><img src="{{route('/assets/imgs/62f13d2424a47.png')}}" alt=""></div>
+                        <div class="ms-4 course-title-list">NodeJS Express</div>
+                    </a>
+
             </div>
+            @if(empty($_SESSION['user']['image']))
+                <div id="showButton" href="" class="text-reset ms-4"><img src="{{route('/assets/imgs/user.png')}}"
+                                                                          alt=""></div>
+                <div id="categoryList">
+                    <li><a href="{{route('/client/profile')}}">Trang cá nhân</a></li>
+                    <li><a href="">Cài Đặt</a></li>
+                    <li><a href="{{route('/client/logout')}}">Đăng Xuất</a></li>
+                </div>
+            @else
+                <div id="showButton" href="" class="text-reset ms-4"><img src="{{$_SESSION['user']['image']}}" alt="">
+                </div>
+                <div id="categoryList">
+                    <li><a href="{{route('/client/profile')}}">Trang cá nhân</a></li>
+                    <li><a href="">Cài Đặt</a></li>
+                    <li><a href="{{route('/client/logout')}}">Đăng Xuất</a></li>
+                </div>
+            @endif
+            @else
+                <a href=" {{ route('/auth/login')}}" class="text-reset">Đăng nhập</a>
+                <a class="d-flex justify-content-center align-items-center ms-3 btn-register"
+                   href="{{ route('/auth/register')}}">Đăng kí</a>
+            @endif
         </header>
     </div>
     <!-- ===========end header=========== -->
@@ -95,19 +96,19 @@
             <!-- ===========banner=========== -->
             <div class="banner mt-3">
                 <div class="slide active">
-                    <a href=""><img src="assets/imgs/1.png" alt=""></a>
+                    <a href=""><img src="{{route('/assets/imgs/1.png')}}" alt=""></a>
                 </div>
                 <div class="slide active">
-                    <a href=""><img src="assets/imgs//2.png" alt=""></a>
+                    <a href=""><img src="{{route('/assets/imgs/2.png')}}" alt=""></a>
                 </div>
                 <div class="slide active">
-                    <a href=""><img src="assets/imgs//3.png" alt=""></a>
+                    <a href=""><img src="{{route('/assets/imgs/3.png')}}" alt=""></a>
                 </div>
                 <div class="slide active">
-                    <a href=""><img src="assets/imgs//4.png" alt=""></a>
+                    <a href=""><img src="{{route('/assets/imgs/4.png')}}" alt=""></a>
                 </div>
                 <div class="slide active">
-                    <a href=""><img src="assets/imgs//5.png" alt=""></a>
+                    <a href=""><img src="{{route('/assets/imgs/5.png')}}" alt=""></a>
                 </div>
 
             </div>
@@ -125,7 +126,9 @@
                             @foreach($courses as $course)
                                 @if($category['id'] == $course['category_id'])
                                     <div class="course col-3">
-                                        <a href="?action=detail"><img src="src/uploads/{{$course['image']}}" alt=""></a>
+                                        <a href="{{route('/detail/'.$course['course_code'])}}"><img
+                                                    src="{{route('/src/Uploads/').$course['image']}}"
+                                                    alt=""></a>
                                         <h5 class="course-name mt-3 ms-1">{{$course['name']}}</h5>
                                         @if(empty($course['discount']))
                                             <del class="old-price fw-light">{{ number_format($course['price'], 0, '.', '.')}}
@@ -154,7 +157,7 @@
         <div class="container-footer row gx-5 pt-5 align-items-center">
             <div class="col-3">
                 <div class="logo">
-                    <img src="assets/imgs/f8-icon.18cd71cfcfa33566a22b.png" alt="">
+                    <img src="{{route('/assets/imgs/f8-icon.18cd71cfcfa33566a22b.png')}}" alt="">
                     <span class="ms-3 fw-bold">Học lập trình để đi làm</span>
                 </div>
                 <div class="footer-content">
@@ -200,7 +203,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="assets/javascript/slick.js"></script>
-<script src="assets/javascript/main.js"></script>
+<script src="{{route('/assets/javascript/slick.js')}}"></script>
+<script src="{{route('/assets/javascript/main.js')}}"></script>
 
 </html>

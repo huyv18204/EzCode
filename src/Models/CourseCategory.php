@@ -7,7 +7,7 @@ use EzCode\Commons\Model;
 class CourseCategory extends Model
 {
     private string $mainTable = 'course_categories';
-    private string $joinTable ='categories';
+    private string $joinTable = 'categories';
 
     public function selectAllCourseCategory()
     {
@@ -53,22 +53,22 @@ class CourseCategory extends Model
         $currentCategoryIds = CourseCategory::selectOneCourseCategory($courseCode);
 
 //        if (is_array($currentCategoryIds) && is_array($selectedCategoryIds)) {
-            $deletedCategoryIds = array_diff($currentCategoryIds, $selectedCategoryIds);
-            if (!empty($deletedCategoryIds)) {
-                foreach ($deletedCategoryIds as $categoryId) {
-                    $array = explode(', ', $categoryId);
-                    CourseCategory::deleteCourseCategory($courseCode, $array);
-                }
-            }
-
-            $newCategoryIds = array_diff($selectedCategoryIds, $currentCategoryIds);
-            if (!empty($newCategoryIds)) {
-                foreach ($newCategoryIds as $categoryId) {
-                    $array = explode(', ', $categoryId);
-                    CourseCategory::insertCourseCategory($courseCode, $array);
-                }
+        $deletedCategoryIds = array_diff($currentCategoryIds, $selectedCategoryIds);
+        if (!empty($deletedCategoryIds)) {
+            foreach ($deletedCategoryIds as $categoryId) {
+                $array = explode(', ', $categoryId);
+                CourseCategory::deleteCourseCategory($courseCode, $array);
             }
         }
+
+        $newCategoryIds = array_diff($selectedCategoryIds, $currentCategoryIds);
+        if (!empty($newCategoryIds)) {
+            foreach ($newCategoryIds as $categoryId) {
+                $array = explode(', ', $categoryId);
+                CourseCategory::insertCourseCategory($courseCode, $array);
+            }
+        }
+    }
 //    }
 
 }

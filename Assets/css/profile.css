@@ -4,7 +4,7 @@
     position: fixed;
 }
 
-.menu>img {
+.menu > img {
     width: 42px;
     border-radius: 5px;
 }
@@ -28,7 +28,7 @@
     position: relative;
     height: 310px;
     background-repeat: no-repeat;
-    background-image: url(./cover-profile.3fb9fed576da4b28386a.png);
+    background-image: url(../imgs/cover-profile.3fb9fed576da4b28386a.png);
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
     margin-bottom: 120px;
@@ -61,7 +61,6 @@
 }
 
 .block-1 {
-    width: 425px;
     min-height: 90px;
     border-radius: 10px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, .1), 0 0 1px 0 rgba(0, 0, 0, .1);

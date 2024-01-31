@@ -1,5 +1,7 @@
 <?php
+
 namespace EzCode\Commons;
+
 use eftec\bladeone\BladeOne;
 
 class Controller

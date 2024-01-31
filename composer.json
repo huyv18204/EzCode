@@ -13,9 +13,7 @@
         }
     ],
     "require": {
-        "phroute/phroute": "^2.2",
         "eftec/bladeone": "^4.9",
-        "bramus/router": "~1.6",
-        "laravel/installer": "~1.1"
+        "bramus/router": "~1.6"
     }
 }

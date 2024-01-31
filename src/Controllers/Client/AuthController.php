@@ -21,12 +21,16 @@ class AuthController extends Controller
         if (isset($_POST['btn-login'])) {
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $users = $this->user->getAll();
-            foreach ($users as $user) {
-                if ($user['email'] == $email && $user['password'] == $password) {
+            $user = $this->user->checkLogin($email, $password);
+            if (!empty($user)) {
+                if ($user['status'] == 1) {
                     $_SESSION['user'] = $user;
-                    var_dump($_SESSION['user']);
-                    header("Location:" . route('/'));
+                   if($user['role'] == 1){
+                       header("Location:" . route('/'));
+                   }else{
+                       header("Location:" . route('/admin/dashboard'));
+                   }
+
                 }
             }
         }
@@ -41,8 +45,8 @@ class AuthController extends Controller
             $password = $_POST['password'];
             $rePassword = $_POST['re-password'];
             if ($password == $rePassword) {
-                $this->user->insert($email, $password,$name);
-                header("Location:".route('/auth/login'));
+                $this->user->insert($email, $password, $name);
+                header("Location:" . route('/auth/login'));
             }
         }
         $this->renderViewsClient($this->folder . __FUNCTION__);
@@ -51,7 +55,7 @@ class AuthController extends Controller
     public function logout()
     {
         unset($_SESSION['user']);
-        header("Location:".route('/'));
+        header("Location:" . route('/'));
 
     }
 }

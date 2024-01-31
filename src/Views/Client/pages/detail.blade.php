@@ -9,9 +9,9 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="src/assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="{{route('/assets/css/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 </head>
 
 <body>
@@ -20,11 +20,11 @@
     <div class="header-class">
         <header class="header d-flex justify-content-between align-items-center">
 
-                <a href="http://localhost/EzCode/" class="logo ms-4 text-reset text-decoration-none">
-                <img src="src/assets/imgs/f8-icon.18cd71cfcfa33566a22b.png" alt="">
-                    <i class=" ms-3 fa-solid fa-angle-left"></i>
+            <a href="{{route('/')}}" class="logo ms-4 text-reset text-decoration-none">
+                <img src="{{route('/assets/imgs/f8-icon.18cd71cfcfa33566a22b.png')}}" alt="">
+                <i class=" ms-3 fa-solid fa-angle-left"></i>
                 <span class="fw-bold">Quay lại</span>
-                </a>
+            </a>
 
             <div class="search">
                 <div class="search-component d-flex justify-content-start align-items-center">
@@ -32,10 +32,46 @@
                     <input type="text" class="ms-2" placeholder="Tìm kiếm khoá học...">
                 </div>
             </div>
+            {{--            <div class=" me-5 d-flex justify-content-center align-items-center btn-function">--}}
+            {{--                <a href="{{route('/auth/login')}}" class="text-reset">Đăng nhập</a>--}}
+            {{--                <a class="d-flex justify-content-center align-items-center ms-3 btn-register" href="{{route('/auth/register')}}">Đăng kí</a>--}}
+            {{--            </div>--}}
             <div class=" me-5 d-flex justify-content-center align-items-center btn-function">
-                <a href="" class="text-reset">Đăng nhập</a>
-                <a class="d-flex justify-content-center align-items-center ms-3 btn-register" href="">Đăng kí</a>
+                @if(isset($_SESSION['user']))
+                    <div id="showCourse" href="" class="my-course text-reset">Khoá học của tôi</div>
+                    <div id="courseList"">
+                    <div class="d-flex justify-content-between mt-2">
+                        <span>Khoá học của tôi</span>
+                        <a href="">Xem tất cả</a>
+                    </div>
+                    <a class="d-flex mt-3 course-component-list" href="">
+                        <div><img src="{{route('/assets/imgs/62f13d2424a47.png')}}" alt=""></div>
+                        <div class="ms-4 course-title-list">NodeJS Express</div>
+                    </a>
+
             </div>
+            @if(empty($_SESSION['user']['image']))
+                <div id="showButton" href="" class="text-reset ms-4"><img src="{{route('/assets/imgs/user.png')}}"
+                                                                          alt=""></div>
+                <div id="categoryList">
+                    <li><a href="{{route('/client/profile')}}">Trang cá nhân</a></li>
+                    <li><a href="">Cài Đặt</a></li>
+                    <li><a href="{{route('/client/logout')}}">Đăng Xuất</a></li>
+                </div>
+            @else
+                <div id="showButton" href="" class="text-reset ms-4"><img src="{{$_SESSION['user']['image']}}" alt="">
+                </div>
+                <div id="categoryList">
+                    <li><a href="{{route('/client/profile')}}">Trang cá nhân</a></li>
+                    <li><a href="">Cài Đặt</a></li>
+                    <li><a href="{{route('/client/logout')}}">Đăng Xuất</a></li>
+                </div>
+            @endif
+            @else
+                <a href=" {{ route('/auth/login')}}" class="text-reset">Đăng nhập</a>
+                <a class="d-flex justify-content-center align-items-center ms-3 btn-register"
+                   href="{{ route('/auth/register')}}">Đăng kí</a>
+            @endif
         </header>
     </div>
     <!-- ===========end header=========== -->
@@ -49,7 +85,7 @@
                     </a>
                 </li>
                 <li class="d-flex align-items-center justify-content-center">
-                    <a class="btn-homepage d-flex flex-column align-items-center justify-content-center" href="">
+                    <a class="btn-homepage d-flex flex-column align-items-center justify-content-center" href="{{route('/')}}">
                         <i class="fa-solid fa-house"></i>
                         <p>Trang chủ</p>
                     </a>
@@ -64,45 +100,75 @@
         </div>
         <!-- ===========end nav=========== -->
         <section class="col-11">
-
-
-
-
-
-
-
             <div class="course-detail row gx-5 mt-5 ms-3">
                 <div class="col-7">
                     <div class="detail-title-course">
-                        <h2>Kiến thức nhập môn IT</h2>
+                        <h2>{{$course['name']}}</h2>
                         <p class="description mt-3">
-                            Để có cái nhìn tổng quan về ngành IT - Lập trình web các bạn nên xem các videos tại khóa
-                            này trước nhé.
+                            {{$course['description']}}
                         </p>
                     </div>
                     <div class="course-content mt-5">
                         <h5 class="fw-bold">Nội dung khoá học</h5>
                         <div class="course-info">
-                            <span>4 chương</span>
-                            <span>- 12 bài học</span>
+                            <span>{{$count_lecture['count_lecture']}} bài học</span>
                         </div>
                         <div class="mt-5">
-                            <div class="lecture ps-3 d-flex align-items-center mb-2">
-                                <i class="fa-solid fa-plus" style="color: #f15f36;"></i>
-                                <span class="ms-3">1. Khái niệm kĩ thuật cần biết</span>
-                            </div>
-                            <div class="lecture ps-3 d-flex align-items-center mb-2">
-                                <i class="fa-solid fa-plus" style="color: #f15f36;"></i>
-                                <span class="ms-3">2. Môi trường, con người IT</span>
-                            </div>
+                            @foreach($lectures as $key => $lecture)
+                                @if(empty($order))
+                                    <div class="lecture ps-3 d-flex align-items-center mb-2">
+                                        <i class="fa-solid fa-plus" style="color: #f15f36;"></i>
+                                        <span class="ms-3">{{$key + 1}}. {{$lecture['name']}}</span>
+                                    </div>
+                                @else
+                                    <a href="{{route('/client/'.$course['course_code'].'/learning/'.$lecture['id'])}}"
+                                       class="text-reset text-decoration-none">
+                                        <div class="lecture ps-3 d-flex align-items-center mb-2">
+                                            <i class="fa-solid fa-plus" style="color: #f15f36;"></i>
+                                            <span class="ms-3">{{$key + 1}}. {{$lecture['name']}}</span>
+                                        </div>
+                                    </a>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
                 <div class="detail-block-2 col-5 d-flex flex-column align-items-center">
                     <div class="">
-                        <img src="src/assets/imgs/62f13d2424a47.png" alt="">
+                        @if(empty($order))
+                            <img src="{{route('/src/Uploads/'.$course['image'])}}" alt="">
+                        @else
+                            <a href="{{route('/client/'.$course['course_code'].'/learning/'.$lectures[0]['id'])}}"><img
+                                        src="{{route('/src/Uploads/'.$course['image'])}}" alt=""></a>
+                        @endif
                     </div>
-                    <div class="mt-5"> <button class="btn-course-register"><a href="?action=learning">ĐĂNG KÍ HỌC</a></button></div>
+                    @if(empty($order))
+                        <div class="mt-4">
+                            @if(empty($course['discount']))
+                                <del class="old-price fw-light">
+                                    {{ number_format($course['price'], 0, '.', '.')}}đ
+                                </del>
+                            @else
+                                <del class="old-price fw-light">
+                                    {{number_format($course['price'], 0, '.', '.')}}đ
+                                </del>
+                                <span class="price">
+                                {{number_format($course['discount'], 0, '.', '.')}}đ
+                            </span>
+                            @endif
+                        </div>
+                    @endif
+
+                    <div class="mt-3">
+                        <button class="btn-course-register">
+                            @if(empty($order))
+                                <a href="{{route('/client/'.$course['course_code'].'/payment')}}">MUA KHOÁ HỌC</a>
+                            @else
+                                <a href="{{route('/client/'.$course['course_code'].'/learning/'.$lectures[0]['id'])}}">BẮT ĐẦU HỌC</a>
+                            @endif
+
+                        </button>
+                    </div>
                     <div class="mt-4">
                         <div class="mt-3">
                             <i class="fa-solid fa-turn-up fa-sm"></i>
@@ -125,17 +191,6 @@
                 </div>
 
             </div>
-
-
-
-
-
-
-
-
-
-
-
         </section>
     </main>
     <!-- ===========footer=========== -->
@@ -143,7 +198,7 @@
         <div class="container-footer row gx-5 pt-5 align-items-center">
             <div class="col-3">
                 <div class="logo">
-                    <img src="./f8-icon.18cd71cfcfa33566a22b.png" alt="">
+                    <img src="{{route('/assets/imgs/f8-icon.18cd71cfcfa33566a22b.png')}}" alt="">
                     <span class="ms-3 fw-bold">Học lập trình để đi làm</span>
                 </div>
                 <div class="footer-content">
@@ -189,6 +244,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="slick.js"></script>
+<script src="{{route('/assets/javascript/main.js')}}"></script>
 
 </html>

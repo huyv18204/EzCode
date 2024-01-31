@@ -81,6 +81,6 @@ class Course extends Model
 
     function getCourseAndCategory()
     {
-        return $this->execute( "SELECT * FROM {$this->tableName} inner join course_categories on {$this->tableName}.course_code = course_categories.course_code");
+        return $this->execute("SELECT * FROM {$this->tableName} inner join course_categories on {$this->tableName}.course_code = course_categories.course_code");
     }
 }

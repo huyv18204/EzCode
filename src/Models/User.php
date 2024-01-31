@@ -29,7 +29,7 @@ class User extends Model
         $this->execute($query, false, $params);
     }
 
-    function update($id,$status)
+    function update($id, $status)
     {
         $query = "UPDATE {$this->tableName} set status = :status where id = :id";
         $params = array(
@@ -38,5 +38,16 @@ class User extends Model
         );
         $this->execute($query, false, $params);
     }
+
+    function checkLogin($email,$password)
+    {
+        $query = "SELECT * FROM users where email = :email and password = :password";
+        $params = array(
+            ':email' => $email,
+            ':password' => $password,
+        );
+        return $this->execute($query, false, $params);
+    }
+
 
 }

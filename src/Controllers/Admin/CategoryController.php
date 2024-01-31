@@ -28,13 +28,11 @@ class CategoryController extends Controller
             $courseName = $_POST['course_name'] ?? null;
             $description = $_POST['description'] ?? null;
             $target_dir = "src/Uploads/";
-
             $imageName = $_FILES["image"]["name"] ?? null;
             $imageTmpName = $_FILES["image"]["tmp_name"] ?? null;
 
             if ($imageName !== null && $imageTmpName !== null) {
                 $target_file = $target_dir . basename($imageName);
-
                 if (move_uploaded_file($imageTmpName, $target_file)) {
                     $this->category->insert($courseName, $description, $imageName);
                 } else {
@@ -59,7 +57,6 @@ class CategoryController extends Controller
             $target_dir = "src/Uploads/";
             $imageName = $_FILES["image"]["name"] ?? null;
             $imageTmpName = $_FILES["image"]["tmp_name"] ?? null;
-
             if ($imageName !== null && $imageTmpName !== null) {
                 $target_file = $target_dir . basename($imageName);
 

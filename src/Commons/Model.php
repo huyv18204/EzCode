@@ -1,6 +1,9 @@
 <?php
+
 namespace EzCode\Commons;
+
 use PDO;
+
 class Model
 {
     function dataBase()
@@ -19,12 +22,6 @@ class Model
 
         }
     }
-
-//    protected string $tableName;
-//    public function __construct($tableName)
-//    {
-//        $this->tableName = $tableName;
-//    }
 
     function execute($query, $selectAll = true, $params = array())
     {

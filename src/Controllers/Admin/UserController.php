@@ -13,7 +13,8 @@ class UserController extends Controller
 
     private string $folder = 'users.';
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->user = new User;
     }
 
@@ -25,9 +26,9 @@ class UserController extends Controller
 
     }
 
-    function update($id,$status)
+    function update($id, $status)
     {
-        $this->user->update($id,$status);
-        header("Location: ".route('/admin/users'));
+        $this->user->update($id, $status);
+        header("Location: " . route('/admin/users'));
     }
 }

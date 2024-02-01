@@ -127,7 +127,7 @@
                                 @if($category['id'] == $course['category_id'])
                                     <div class="course col-3">
                                         <a href="{{route('/detail/'.$course['course_code'])}}"><img
-                                                    src="{{route('/src/Uploads/').$course['image']}}"
+                                                    src="{{route($course['image'])}}"
                                                     alt=""></a>
                                         <h5 class="course-name mt-3 ms-1">{{$course['name']}}</h5>
                                         @if(empty($course['discount']))

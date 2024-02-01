@@ -1,8 +1,6 @@
 <?php
 
 namespace EzCode\Models;
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 use EzCode\Commons\Model;
 
@@ -12,75 +10,88 @@ class Course extends Model
 
     function getAll()
     {
+
         return $this->execute("SELECT * FROM {$this->tableName}");
     }
 
-    function getById($courseCode)
+    function getById($course_code)
     {
         $query = "SELECT * FROM {$this->tableName} where course_code =:course_code";
-        $params = array(':course_code' => $courseCode);
+        $params = array(
+            ':course_code' => $course_code
+        );
         return $this->execute($query, false, $params);
     }
 
-    function insert($courseName, $description, $price, $discount, $image, $courseCode, $status = 1, $registerNumber = 0)
+    function insert($name, $description, $price, $discount, $image, $course_code, $status = 1, $register_number = 0)
     {
-        $query = "INSERT INTO {$this->tableName} 
-                    (name, description, price, discount, image ,course_code,status, register_number)
-                    VALUES (:courseName, :description, :price, :discount, :image,:courseCode, :status, :registerNumber)";
+        $query = "
+                    INSERT INTO {$this->tableName} 
+                            (name, description,  price,  discount,  image , course_code, status,  register_number)
+                    VALUES (:name, :description, :price, :discount, :image,:course_code, :status, :register_number)
+                 ";
 
         $params = array(
-            ':courseName' => $courseName,
-            ':description' => $description,
-            ':price' => $price,
-            ':discount' => $discount,
-            ':image' => $image,
-            ':courseCode' => $courseCode,
-            ':status' => $status,
-            ':registerNumber' => $registerNumber,
+            ':name'             => $name,
+            ':description'      => $description,
+            ':price'            => $price,
+            ':discount'         => $discount,
+            ':image'            => $image,
+            ':course_code'      => $course_code,
+            ':status'           => $status,
+            ':register_number'  => $register_number,
         );
         $this->execute($query, false, $params);
     }
 
 
-    function update($courseName, $description, $price, $discount, $image, $courseCode)
+    function update($name, $description, $price, $discount, $image, $course_code)
     {
-        if (empty($image)) {
-            $query = "UPDATE {$this->tableName} 
-                         set name = :courseName, description =:description, price=:price, discount = :discount
-                         where course_code = :courseCode";
-            $params = array(
-                ':courseName' => $courseName,
-                ':description' => $description,
-                ':price' => $price,
-                ':discount' => $discount,
-                ':courseCode' => $courseCode
-            );
-        } else {
-            $query = "UPDATE {$this->tableName} 
-                                set name = :courseName, description =:description, price=:price, discount = :discount ,image = :image 
-                                where course_code = :courseCode";
-            $params = array(
-                ':courseName' => $courseName,
-                ':description' => $description,
-                ':price' => $price,
-                ':discount' => $discount,
-                ':image' => $image,
-                ':courseCode' => $courseCode
-            );
-        }
+        $query = "
+                    UPDATE {$this->tableName} 
+                    SET 
+                        name        = :name, 
+                        description = :description, 
+                        price       = :price, 
+                        discount    = :discount ,
+                        image       = :image 
+                    WHERE course_code = :course_code
+                 ";
+
+        $params = array(
+            ':name'             => $name,
+            ':description'      => $description,
+            ':price'            => $price,
+            ':discount'         => $discount,
+            ':image'            => $image,
+            ':course_code'      => $course_code
+        );
         $this->execute($query, false, $params);
 
     }
 
-    function delete($courseId)
+    function delete($course_code)
     {
-        $query = "DELETE FROM {$this->tableName} where course_code = :id";
-        $params = array(':id' => $courseId);
+        $query = "
+                    DELETE 
+                    FROM {$this->tableName} 
+                    WHERE course_code = :course_code
+                 ";
+
+        $params = array(
+            ':course_code' => $course_code
+        );
         $this->execute($query, false, $params);
     }
 
     function getCourseAndCategory()
     {
-        return $this->execute("SELECT * FROM {$this->tableName} inner join course_categories on {$this->tableName}.course_code = course_categories.course_code");
+        return $this->execute("
+                    SELECT * 
+                    FROM {$this->tableName} 
+                    INNER JOIN course_categories 
+                    ON {$this->tableName}.course_code 
+                    = course_categories.course_code
+                ");
     }
 }

@@ -9,27 +9,13 @@ use EzCode\Models\CourseCategory;
 
 class HomeController extends Controller
 {
-    private Course $course;
-    private CourseCategory $courseCategory;
-    private Category $category;
-
     private string $folder = 'pages.';
-
-    public function __construct()
-    {
-        $this->course = new Course();
-        $this->courseCategory = new CourseCategory();
-        $this->category = new Category();
-    }
-
     function home()
-
     {
-        $data['courses'] = $this->course->getCourseAndCategory();
-        $data['categories'] = $this->category->getAll();
-        $data['course_categories'] = $this->courseCategory->selectAllCourseCategory();
+        $data['courses']            = (new Course())->getCourseAndCategory();
+        $data['categories']         =(new Category())->getAll();
+        $data['course_categories']  = (new CourseCategory())->getAll();
         $this->renderViewsClient($this->folder . __FUNCTION__, $data);
-
     }
 
 }

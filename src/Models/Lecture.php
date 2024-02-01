@@ -8,69 +8,106 @@ class Lecture extends Model
 {
     private string $tableName = 'lectures';
 
-    function getById($courseCode)
+    function getById($course_code)
     {
-        $query = "SELECT * FROM {$this->tableName} where course_code =:course_code";
-        $params = array(':course_code' => $courseCode);
+        $query = "
+                    SELECT * 
+                    FROM {$this->tableName} 
+                    WHERE course_code =:course_code
+                 ";
+        $params = array(':course_code' => $course_code);
         return $this->execute($query, true, $params);
     }
 
     function getUrl($id)
     {
-        $query = "SELECT * FROM {$this->tableName} where id = :id";
-        $params = array(':id' => $id);
+        $query = "
+                    SELECT * 
+                    FROM {$this->tableName} 
+                    WHERE id = :id
+                 ";
+        $params = array(
+            ':id' => $id
+        );
         return $this->execute($query, false, $params);
     }
 
 
-    function getByIdAndCourseCode($courseCode, $id)
+    function getByIdAndCourseCode($course_code, $id)
     {
-        $query = "SELECT * FROM {$this->tableName} where course_code =:course_code and id = :id";
-        $params = array(':course_code' => $courseCode,':id' => $id);
+        $query = "
+                    SELECT * 
+                    FROM {$this->tableName} 
+                    WHERE course_code =:course_code 
+                    AND id = :id
+                ";
+        $params = array(
+            ':course_code'  => $course_code,
+            ':id'           => $id
+        );
         return $this->execute($query, false, $params);
     }
 
 
-    function insert($lectureName, $url, $courseCode)
+    function insert($name, $url, $course_code)
     {
-        $query = "INSERT INTO {$this->tableName} 
-                    (name, url, course_code)
-                    VALUES (:lectureName, :url,:courseCode)";
+        $query = "
+                    INSERT INTO {$this->tableName} 
+                            (name, url, course_code)
+                    VALUES (:name, :url,:course_code)
+                 ";
 
         $params = array(
-            ':lectureName' => $lectureName,
-            ':url' => $url,
-            ':courseCode' => $courseCode,
+            ':name'         => $name,
+            ':url'          => $url,
+            ':course_code'  => $course_code,
         );
         $this->execute($query, false, $params);
     }
 
-    function update($lectureName, $url, $courseCode, $id)
+    function update($name, $url, $course_code, $id)
     {
-        $query = "UPDATE {$this->tableName} 
-                         set name = :lectureName, url =:url
-                         where id = :id and course_code = :courseCode";
+        $query = "
+                    UPDATE {$this->tableName} 
+                    SET     name        = :name, 
+                            url         = :url
+                    WHERE   id          = :id 
+                    AND     course_code = :course_code
+                 ";
 
         $params = array(
-            ':lectureName' => $lectureName,
-            ':url' => $url,
-            ':courseCode' => $courseCode,
-            ':id' => $id,
+            ':name'         => $name,
+            ':url'          => $url,
+            ':course_code'  => $course_code,
+            ':id'           => $id,
         );
         $this->execute($query, false, $params);
     }
 
 
-    function delete($courseCode,$id)
+    function delete($course_code,$id)
     {
-        $query = "DELETE FROM {$this->tableName} where id = :id and course_code = :course_code";
-        $params = array(':id' => $id,':course_code'=> $courseCode);
+        $query = "
+                    DELETE 
+                    FROM {$this->tableName} 
+                    WHERE id = :id 
+                    AND course_code = :course_code
+                ";
+        $params = array(
+            ':id'           => $id,
+            ':course_code'  => $course_code
+        );
         $this->execute($query, false, $params);
     }
 
-    function count($courseCode){
-        $query = "SELECT COUNT(*) AS count_lecture FROM $this->tableName WHERE course_code = :course_code";
-        $params = array(':course_code' => $courseCode);
+    function count($course_code){
+        $query = "
+                    SELECT COUNT(*) AS count_lecture
+                    FROM $this->tableName 
+                    WHERE course_code = :course_code";
+        $params = array(
+            ':course_code' => $course_code
+        );
         return $this->execute($query, false, $params);
     }
 

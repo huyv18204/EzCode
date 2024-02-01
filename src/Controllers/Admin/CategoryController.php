@@ -7,40 +7,34 @@ use EzCode\Models\Category;
 
 class CategoryController extends Controller
 {
-    private Category $category;
 
     private string $folder = 'categories.';
-
-    public function __construct()
-    {
-        $this->category = new Category();
-    }
-
+    const PATH_UPLOAD = '/storages/categories/';
     function index()
     {
-        $data['categories'] = $this->category->getAll();
+        $data['categories'] = (new Category())->getAll();
         $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
     }
 
     function create()
     {
         if (isset($_POST['btn-add'])) {
-            $courseName = $_POST['course_name'] ?? null;
-            $description = $_POST['description'] ?? null;
-            $target_dir = "src/Uploads/";
-            $imageName = $_FILES["image"]["name"] ?? null;
-            $imageTmpName = $_FILES["image"]["tmp_name"] ?? null;
+            $courseName     = $_POST['course_name'];
+            $description    = $_POST['description'];
 
-            if ($imageName !== null && $imageTmpName !== null) {
-                $target_file = $target_dir . basename($imageName);
-                if (move_uploaded_file($imageTmpName, $target_file)) {
-                    $this->category->insert($courseName, $description, $imageName);
-                } else {
-                    echo "Không thể upload file.";
+            $image          = $_FILES['image'] ?? null;
+            $imagePath      = null;
+            if ($image) {
+                $imagePath = self::PATH_UPLOAD . time() . $image['name'];
+
+                if (!move_uploaded_file($image['tmp_name'], PATH_ROOT . $imagePath)) {
+                    $imagePath = null;
                 }
-            } else {
-                echo "Thông tin file không hợp lệ.";
             }
+            (new Category())->insert(
+                $courseName,
+                $description,
+                $imagePath);
             header("location:" . route('/admin/categories'));
         }
 
@@ -50,23 +44,37 @@ class CategoryController extends Controller
 
     function update($id)
     {
-        $data['category'] = $this->category->getById($id);
+        $data['category']   = (new Category())->getById($id);
         if (isset($_POST['btn-edit'])) {
-            $courseName = $_POST['course_name'] ?? null;
-            $description = $_POST['description'] ?? null;
-            $target_dir = "src/Uploads/";
-            $imageName = $_FILES["image"]["name"] ?? null;
-            $imageTmpName = $_FILES["image"]["tmp_name"] ?? null;
-            if ($imageName !== null && $imageTmpName !== null) {
-                $target_file = $target_dir . basename($imageName);
+            $courseName     = $_POST['course_name'];
+            $description    = $_POST['description'];
 
-                if (!move_uploaded_file($imageTmpName, $target_file)) {
-                    echo "Không thể upload file.";
+            $image          = $_FILES['image'] ?? null;
+            $imagePath      = $data['category']['image'];
+            $move           = false;
+            if ($image) {
+                $imagePath = self::PATH_UPLOAD . time() . $image['name'];
+
+                if (!move_uploaded_file($image['tmp_name'], PATH_ROOT . $imagePath)) {
+                    $imagePath = $data['category']['image'];
+                } else {
+                    $move = true;
                 }
-            } else {
-                echo "Thông tin file không hợp lệ.";
             }
-            $this->category->update($courseName, $description, $imageName, $id);
+
+            (new Category())->update(
+                $courseName,
+                $description,
+                $imagePath,
+                $id);
+
+            if (
+                $move
+                && $data['category']['image']
+                && file_exists(PATH_ROOT . $data['category']['image'])
+            ) {
+                unlink(PATH_ROOT . $data['category']['image']);
+            }
             header("location:" . route('/admin/categories'));
         }
         $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
@@ -74,7 +82,12 @@ class CategoryController extends Controller
 
     function delete($id)
     {
-        $this->category->delete($id);
+
+        $category = (new Category())->getById($id);
+        (new Category())->delete($id);
+        if ($category['image'] && file_exists(PATH_ROOT . $category['image'])) {
+            unlink(PATH_ROOT . $category['image']);
+        }
         header("location:" . route('/admin/categories'));
     }
 }

@@ -99,5 +99,4 @@
 </section>
 </body>
 <script src="{{route('/assets/javascript/admin.js')}}"></script>
-@include('vendor.roksta.src.toastr');
 </html>

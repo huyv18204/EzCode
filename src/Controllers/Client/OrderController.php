@@ -7,16 +7,6 @@ use EzCode\Models\Order;
 
 class OrderController
 {
-
-    private Order $order;
-
-//    private string $folder = 'order.';
-
-    public function __construct()
-    {
-        $this->order = new Order();
-    }
-
     public function execPostRequest($url, $data)
     {
         $ch = curl_init($url);
@@ -59,18 +49,18 @@ class OrderController
         $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
         $signature = hash_hmac("sha256", $rawHash, $secretKey);
         $data = array('partnerCode' => $partnerCode,
-            'partnerName' => "Test",
-            "storeId" => "MomoTestStore",
-            'requestId' => $requestId,
-            'amount' => $amount,
-            'orderId' => $orderId,
-            'orderInfo' => $orderInfo,
-            'redirectUrl' => $redirectUrl,
-            'ipnUrl' => $ipnUrl,
-            'lang' => 'vi',
-            'extraData' => $extraData,
-            'requestType' => $requestType,
-            'signature' => $signature);
+            'partnerName'       => "Test",
+            "storeId"           => "MomoTestStore",
+            'requestId'         => $requestId,
+            'amount'            => $amount,
+            'orderId'           => $orderId,
+            'orderInfo'         => $orderInfo,
+            'redirectUrl'       => $redirectUrl,
+            'ipnUrl'            => $ipnUrl,
+            'lang'              => 'vi',
+            'extraData'         => $extraData,
+            'requestType'       => $requestType,
+            'signature'         => $signature);
         $result = $this->execPostRequest($endpoint, json_encode($data));
         $jsonResult = json_decode($result, true);
 
@@ -80,7 +70,11 @@ class OrderController
 
     public function order()
     {
-        $this->order->insert($_GET['orderId'],$_GET['extraData'],$_SESSION['user']['id'],date('Y-m-d H:i:s'));
-        header("Location:".route('/detail/'.$_GET['extraData']));
+        (new Order())->insert(
+            $_GET['orderId'],
+            $_GET['extraData'],
+            $_SESSION['user']['id'],
+            date('Y-m-d H:i:s'));
+        header("Location:" . route('/detail/' . $_GET['extraData']));
     }
 }

@@ -6,7 +6,7 @@ use PDO;
 
 class Model
 {
-    function dataBase()
+    public function dataBase()
     {
         $host = DB_HOST;
         $port = DB_PORT;
@@ -25,8 +25,6 @@ class Model
 
     function execute($query, $selectAll = true, $params = array())
     {
-
-
         try {
             $stmt = $this->dataBase()->prepare($query);
 

@@ -9,36 +9,54 @@ class CourseCategory extends Model
     private string $mainTable = 'course_categories';
     private string $joinTable = 'categories';
 
-    public function selectAllCourseCategory()
+    public function getAll()
     {
-        return $this->execute("SELECT * FROM {$this->mainTable} inner join {$this->joinTable} on {$this->mainTable}.category_id = {$this->joinTable}.id");
+        return $this->execute("
+                    SELECT * 
+                    FROM {$this->mainTable} 
+                    INNER JOIN {$this->joinTable} 
+                    ON {$this->mainTable}.category_id 
+                    = {$this->joinTable}.id
+        ");
     }
 
-
-    public function selectOneCourseCategory($courseCode)
+    public function getByCode($courseCode)
     {
-        $query = "SELECT category_id FROM {$this->mainTable} where course_code =:courseCode";
-        $params = array(':courseCode' => $courseCode);
-        return $this->execute($query, false, $params);
+        $query = "
+                    SELECT category_id 
+                    FROM {$this->mainTable} 
+                    WHERE course_code =:courseCode
+                 ";
+        $params = array(
+            ':courseCode' => $courseCode
+        );
+        return $this->execute($query, true, $params);
     }
 
-    public function insertCourseCategory($courseCode, $categoryIds)
+    public function insert($courseCode, $categoryIds)
     {
-        $query = "INSERT INTO {$this->mainTable} (course_code, category_id) VALUES (:courseCode, :categoryId)";
+        $query = "
+                    INSERT INTO {$this->mainTable} (course_code, category_id) 
+                    VALUES                         (:course_code, :category_id)";
 
         foreach ($categoryIds as $categoryId) {
             $params = array(
-                ':courseCode' => $courseCode,
-                ':categoryId' => $categoryId
+                ':course_code' => $courseCode,
+                ':category_id' => $categoryId,
             );
             $this->execute($query, false, $params);
         }
+
     }
 
-
-    public function deleteCourseCategory($courseCode, $categoryIds)
+    public function deleteCodeCateId($courseCode, $categoryIds)
     {
-        $query = "DELETE FROM {$this->mainTable} WHERE course_code = :courseCode AND category_id = :categoryId";
+        $query = "
+                    DELETE 
+                    FROM {$this->mainTable} 
+                    WHERE course_code = :courseCode 
+                    AND category_id = :categoryId";
+
         foreach ($categoryIds as $categoryId) {
             $params = array(
                 ':courseCode' => $courseCode,
@@ -50,25 +68,37 @@ class CourseCategory extends Model
 
     function updateCourseCategory($courseCode, $selectedCategoryIds)
     {
-        $currentCategoryIds = CourseCategory::selectOneCourseCategory($courseCode);
-
-//        if (is_array($currentCategoryIds) && is_array($selectedCategoryIds)) {
-        $deletedCategoryIds = array_diff($currentCategoryIds, $selectedCategoryIds);
-        if (!empty($deletedCategoryIds)) {
-            foreach ($deletedCategoryIds as $categoryId) {
-                $array = explode(', ', $categoryId);
-                CourseCategory::deleteCourseCategory($courseCode, $array);
+        $currentCategoryIds = CourseCategory::getByCode($courseCode);
+        if (is_array($currentCategoryIds) && is_array($selectedCategoryIds)) {
+            $deletedCategoryIds = array_diff($currentCategoryIds, $selectedCategoryIds);
+            if (!empty($deletedCategoryIds)) {
+                foreach ($deletedCategoryIds as $categoryId) {
+                    CourseCategory::deleteCodeCateId($courseCode, $categoryId);
+                }
             }
-        }
 
-        $newCategoryIds = array_diff($selectedCategoryIds, $currentCategoryIds);
-        if (!empty($newCategoryIds)) {
-            foreach ($newCategoryIds as $categoryId) {
-                $array = explode(', ', $categoryId);
-                CourseCategory::insertCourseCategory($courseCode, $array);
+            $newCategoryIds = array_diff($selectedCategoryIds, $currentCategoryIds);
+            if (!empty($newCategoryIds)) {
+                foreach ($newCategoryIds as $categoryId) {
+                    $array = explode(', ', $categoryId);
+                    CourseCategory::insert($courseCode, $array);
+                }
             }
         }
     }
-//    }
+
+    public function deleteByCode($courseCode)
+    {
+        $query = "    
+                    DELETE 
+                    FROM {$this->mainTable} 
+                    WHERE course_code = :courseCode
+                 ";
+
+        $params = array(
+            ':courseCode' => $courseCode,
+        );
+        $this->execute($query, false, $params);
+    }
 
 }

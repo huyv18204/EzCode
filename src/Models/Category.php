@@ -17,61 +17,66 @@ class Category extends Model
     }
 
 
-    function getById($categoryId)
+    function getById($id)
     {
-        $query = "SELECT * FROM {$this->tableName} where id =:id";
-        $params = array(':id' => $categoryId);
+        $query = "SELECT * FROM {$this->tableName} WHERE id =:id";
+        $params = array(
+            ':id' => $id
+        );
         return $this->execute($query, false, $params);
     }
 
 
     function insert($categoryName, $description, $image)
     {
-        $query = "INSERT INTO {$this->tableName} 
-        (name, description,image)
-        VALUES (:categoryName, :description, :image)";
+        $query = "
+                    INSERT INTO {$this->tableName} 
+                            ( name, description, image)
+                    VALUES (:name, :description, :image)
+                 ";
 
         $params = array(
-            ':categoryName' => $categoryName,
-            ':description' => $description,
-            ':image' => $image,
+            ':name'         => $categoryName,
+            ':description'  => $description,
+            ':image'        => $image,
         );
 
         $this->execute($query, false, $params);
     }
 
 
-    function update($categoryName, $description, $image, $category_id)
+    function update($name, $description, $image, $category_id)
     {
-        if (empty($image)) {
-            $query = "UPDATE {$this->tableName} 
-                        set name = :categoryName, description =:description 
-                        where id = :category_id";
-            $params = array(
-                ':categoryName' => $categoryName,
-                ':description' => $description,
-                ':category_id' => $category_id,
-            );
-        } else {
-            $query = "UPDATE {$this->tableName} 
-                        set name = :categoryName, description =:description, image = :image 
-                        where id = :category_id";
-            $params = array(
-                ':categoryName' => $categoryName,
-                ':description' => $description,
-                ':image' => $image,
-                ':category_id' => $category_id,
-            );
-        }
+        $query = "
+                        UPDATE {$this->tableName} 
+                        SET 
+                            name        = :name, 
+                            description = :description, 
+                            image       = :image 
+                        WHERE id        = :category_id
+                     ";
+        $params = array(
+            ':name'         => $name,
+            ':description'  => $description,
+            ':image'        => $image,
+            ':category_id'  => $category_id,
+        );
         $this->execute($query, false, $params);
 
     }
 
 
-    function delete($categoryId)
+    function delete($id)
     {
-        $query = "DELETE FROM {$this->tableName} where id = :id";
-        $params = array(':id' => $categoryId);
+        $query = "
+                    DELETE 
+                    FROM {$this->tableName} 
+                    WHERE id = :id
+                 ";
+
+        $params = array(
+            ':id' => $id
+        );
         $this->execute($query, false, $params);
     }
 

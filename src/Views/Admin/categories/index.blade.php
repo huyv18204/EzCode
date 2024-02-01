@@ -41,7 +41,7 @@
                             <td>
                                 <p>{{ $category['name'] }}</p>
                             </td>
-                            <td><img src="{{ route('/src/Uploads/').$category['image'] }}" alt=""></td>
+                            <td><img src="{{ route($category['image']) }}" alt=""></td>
 
                             <th>
                                 <a class="btn btn-primary"

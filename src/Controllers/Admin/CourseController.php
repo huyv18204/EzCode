@@ -9,100 +9,106 @@ use EzCode\Models\CourseCategory;
 
 class CourseController extends Controller
 {
-    private Course $course;
-    private Category $category;
-
     private string $folder = 'courses.';
-
-    public function __construct()
-    {
-        $this->course = new Course();
-        $this->category = new Category();
-    }
+    const PATH_UPLOAD = '/storages/courses/';
 
     function index()
     {
-        $data['courses'] = $this->course->getAll();
-        $courseCategory = new CourseCategory();
-        $data['course_categories'] = $courseCategory->selectAllCourseCategory();
+        $data['courses']            = (new Course())->getAll();
+        $data['course_categories']  = (new CourseCategory())->getAll();
         $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
     }
 
     function create()
     {
+        $data['categories'] = (new Category())->getAll();
         if (isset($_POST['btn-add'])) {
-            $courseName = $_POST['course_name'] ?? null;
-            $courseCode = substr(rand(0, 9999), 0, 6);
-            $price = $_POST['price'] ?? null;
-            $description = $_POST['description'] ?? null;
-            $category_id = $_POST['category_id'] ?? null;
-            $discount = $_POST['discount'] ?? null;
-            $target_dir = "src/Uploads/";
+            $courseName     = $_POST['course_name'];
+            $courseCode     = substr(rand(0, 9999), 0, 6);
+            $price          = $_POST['price'];
+            $description    = $_POST['description'];
+            $category_id    = $_POST['category_id'];
+            $discount       = $_POST['discount'];
 
-            $imageName = $_FILES["image"]["name"] ?? null;
-            $imageTmpName = $_FILES["image"]["tmp_name"] ?? null;
+            $image          = $_FILES['image'] ?? null;
+            $imagePath      = null;
+            if ($image) {
+                $imagePath = self::PATH_UPLOAD . time() . $image['name'];
 
-            if ($imageName !== null && $imageTmpName !== null) {
-                $target_file = $target_dir . basename($imageName);
-
-                if (move_uploaded_file($imageTmpName, $target_file)) {
-                    $this->course->insert($courseName, $description, $price, $discount, $imageName, $courseCode);
-                    $courseCategory = new CourseCategory();
-                    $courseCategory->insertCourseCategory($courseCode, $category_id);
-
-                } else {
-                    echo "Không thể upload file.";
+                if (!move_uploaded_file($image['tmp_name'], PATH_ROOT . $imagePath)) {
+                    $imagePath = null;
                 }
-            } else {
-                echo "Thông tin file không hợp lệ.";
             }
+            (new Course())->insert(
+                $courseName,
+                $description,
+                $price,
+                $discount,
+                $imagePath,
+                $courseCode);
+            (new CourseCategory())->insert($courseCode, $category_id);
+
             header("location:" . route('/admin/courses'));
         }
-
-        $this->renderViewsAdmin($this->folder . __FUNCTION__);
+        $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
     }
 
 
     function update($id)
     {
-        $data['courses'] = $this->course->getById($id);
-        $courseCategory = new CourseCategory();
-        $data['course_categories'] = $courseCategory->selectAllCourseCategory();
-        $data['categories'] = $this->category->getAll();
+        $data['courses']            = (new Course())->getById($id);
+        $data['course_categories']  = (new CourseCategory())->getAll();
+        $data['categories']         = (new Category())->getAll();
 
         if (isset($_POST['btn-update'])) {
-            $courseName = $_POST['course_name'] ?? null;
-            $price = $_POST['price'] ?? null;
-            $description = $_POST['description'] ?? null;
-            $category_id = $_POST['category_id'] ?? null;
-            $discount = $_POST['discount'] ?? null;
-            $target_dir = "src/Uploads/";
+            $courseName             = $_POST['course_name'];
+            $price                  = $_POST['price'];
+            $description            = $_POST['description'];
+            $category_id            = $_POST['category_id'];
+            $discount               = $_POST['discount'];
 
-            $imageName = $_FILES["image"]["name"] ?? null;
-            $imageTmpName = $_FILES["image"]["tmp_name"] ?? null;
+            $image                  = $_FILES['image'] ?? null;
+            $imagePath              = $data['post']['p_image'];
+            $move                   = false;
+            if ($image) {
+                $imagePath = self::PATH_UPLOAD . time() . $image['name'];
 
-            if ($imageName !== null && $imageTmpName !== null) {
-                $target_file = $target_dir . basename($imageName);
-
-                if (!move_uploaded_file($imageTmpName, $target_file)) {
-                    echo "Không thể upload file.";
+                if (!move_uploaded_file($image['tmp_name'], PATH_ROOT . $imagePath)) {
+                    $imagePath = $data['post']['p_image'];
+                } else {
+                    $move = true;
                 }
-            } else {
-                echo "Thông tin file không hợp lệ.";
             }
-            $this->course->update($courseName, $description, $price, $discount, $imageName, $id);
+            (new Course())->update(
+                $courseName,
+                $description,
+                $price, $discount,
+                $imagePath,
+                $id
+            );
+            (new CourseCategory())->updateCourseCategory($id, $category_id);
 
-            $courseCategory = new CourseCategory('course_categories');
-            $courseCategory->updateCourseCategory($id, $category_id);
+            if (
+                $move
+                && $data['courses']['image']
+                && file_exists(PATH_ROOT . $data['courses']['image'])
+            ) {
+                unlink(PATH_ROOT . $data['courses']['image']);
+            }
             header("location:" . route('/admin/courses'));
-
         }
         $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
     }
 
-    function delete($id)
+    function delete($courseCode)
     {
-        $this->course->delete($id);
+        $course = (new Course())->getById($courseCode);
+        (new Course())->delete($courseCode);
+        (new CourseCategory())->deleteByCode($courseCode);
+
+        if ($course['image'] && file_exists(PATH_ROOT . $course['image'])) {
+            unlink(PATH_ROOT . $course['image']);
+        }
         header("location:" . route('/admin/courses'));
     }
 

@@ -8,27 +8,19 @@ use EzCode\Models\User;
 class UserController extends Controller
 
 {
-
-    private User $user;
-
     private string $folder = 'users.';
-
-    public function __construct()
-    {
-        $this->user = new User;
-    }
 
     function index()
 
     {
-        $data['users'] = $this->user->getAll();
+        $data['users'] = (new User())->getAll();
         $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
 
     }
 
     function update($id, $status)
     {
-        $this->user->update($id, $status);
+        (new User())->update($id, $status);
         header("Location: " . route('/admin/users'));
     }
 }

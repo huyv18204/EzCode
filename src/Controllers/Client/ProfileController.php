@@ -12,6 +12,5 @@ class ProfileController extends Controller
 
     {
         $this->renderViewsClient($this->folder . __FUNCTION__);
-
     }
 }

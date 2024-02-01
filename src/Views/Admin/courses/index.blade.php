@@ -44,14 +44,11 @@
                         <tr>
                             <td> {{ $course['course_code'] }}</td>
                             <td>{{ $course['name'] }}</td>
-                            <td><img src="{{route('/src/Uploads/'). $course['image']}}" alt=""></td>
+                            <td><img src="{{route($course['image'])}}" alt=""></td>
                             <td>
-
                                 @foreach ($course_categories as $course_category)
                                     @if ($course['course_code'] == $course_category['course_code'])
-
                                         <li>{{$course_category['name']}}</li>
-
                                     @endif
                                 @endforeach
                             </td>

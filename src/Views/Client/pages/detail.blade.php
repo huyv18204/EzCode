@@ -136,10 +136,10 @@
                 <div class="detail-block-2 col-5 d-flex flex-column align-items-center">
                     <div class="">
                         @if(empty($order))
-                            <img src="{{route('/src/Uploads/'.$course['image'])}}" alt="">
+                            <img src="{{route($course['image'])}}" alt="">
                         @else
                             <a href="{{route('/client/'.$course['course_code'].'/learning/'.$lectures[0]['id'])}}"><img
-                                        src="{{route('/src/Uploads/'.$course['image'])}}" alt=""></a>
+                                        src="{{route($course['image'])}}" alt=""></a>
                         @endif
                     </div>
                     @if(empty($order))

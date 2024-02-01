@@ -15,36 +15,46 @@ class User extends Model
 
     function insert($email, $password, $name, $status = 1, $role = 1)
     {
-        $query = "INSERT INTO {$this->tableName} 
-                    (email, password,name, status, role)
-                    VALUES (:email, :password,:name, :status, :role)";
+        $query = "
+                    INSERT INTO {$this->tableName} 
+                            (email, password,  name,  status,  role)
+                    VALUES (:email, :password,:name, :status, :role)
+                 ";
 
         $params = array(
-            ':email' => $email,
-            ':password' => $password,
-            ':name' => $name,
-            ':status' => $status,
-            ':role' => $role,
+            ':email'        => $email,
+            ':password'     => $password,
+            ':name'         => $name,
+            ':status'       => $status,
+            ':role'         => $role,
         );
         $this->execute($query, false, $params);
     }
 
     function update($id, $status)
     {
-        $query = "UPDATE {$this->tableName} set status = :status where id = :id";
+        $query = "
+                    UPDATE {$this->tableName} 
+                    SET      status  = :status 
+                    WHERE    id      = :id";
         $params = array(
-            ':status' => $status == 1 ? 2 : 1,
-            ':id' => $id,
+            ':status'       => $status == 1 ? 2 : 1,
+            ':id'           => $id,
         );
         $this->execute($query, false, $params);
     }
 
     function checkLogin($email,$password)
     {
-        $query = "SELECT * FROM users where email = :email and password = :password";
+        $query = "
+                    SELECT * 
+                    FROM users 
+                    WHERE email = :email 
+                    AND password = :password
+                 ";
         $params = array(
-            ':email' => $email,
-            ':password' => $password,
+            ':email'        => $email,
+            ':password'     => $password,
         );
         return $this->execute($query, false, $params);
     }

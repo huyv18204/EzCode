@@ -1,0 +1,19 @@
+{
+    "name": "huy_vq/ez-code",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "EzCode\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "VU QUOC HUY",
+            "email": "vqh8124@gmail.com"
+        }
+    ],
+    "require": {
+        "eftec/bladeone": "^4.9",
+        "bramus/router": "~1.6"
+    }
+}

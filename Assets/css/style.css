@@ -1,0 +1,355 @@
+/* ========header======= */
+.header {
+    height: 65px;
+    width: 100%;
+    border-bottom: 1px solid #e7ebed;
+    position: fixed;
+    z-index: 3;
+    background-color: #fff;
+}
+
+.logo img {
+    width: 42px;
+    border-radius: 5px;
+}
+
+.search-component {
+    width: 410px;
+    height: 40px;
+    border: 2px solid #e7ebed;
+    border-radius: 20px;
+
+}
+
+.search input {
+    width: 80%;
+    border: none;
+}
+
+.search input::placeholder {
+    font-size: 13px;
+}
+
+.search input:focus {
+    outline: 0;
+}
+
+.btn-register {
+    display: block;
+    width: 95px;
+    height: 30px;
+    background-color: #ff681c;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.btn-register:hover {
+    color: #fff;
+}
+
+.btn-function a {
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.header-class {
+    height: 65px;
+}
+
+/* ========end header======= */
+/* ========main======= */
+.main {
+    min-height: 367px;
+    width: 100%;
+}
+
+/* ========end main======= */
+/* ========nav======= */
+.nav {
+    position: fixed;
+    z-index: 3;
+    width: 70px;
+    height: 100%;
+
+}
+
+.nav-class {
+    width: 90px;
+}
+
+.nav li {
+    width: 70px;
+    height: 70px;
+    list-style: none;
+    margin-top: 10px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #000;
+}
+
+.nav p {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.add {
+    height: 45px;
+    width: 45px;
+    background-color: #1373e5;
+    border-radius: 30px;
+}
+
+/* ========end nav======= */
+
+/* ========banner======= */
+.banner img,
+.banner {
+    width: 100%;
+    border-radius: 20px;
+}
+
+.slick-next {
+    right: 0;
+}
+
+.slick-prev {
+    left: 0;
+
+}
+
+.slick-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 30px;
+    color: #636363;
+    background-color: #fff;
+}
+
+/* ========end banner======= */
+/* ========course main======= */
+.course-title {
+    font-size: 23px;
+}
+
+.course img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.course-component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.course-name {
+    font-size: 18px;
+}
+
+.price {
+    color: #ff681c;
+    font-weight: bold;
+    margin-left: 3px;
+}
+
+/* ========end course main======= */
+
+/* ========footer======= */
+
+.footer {
+    background-color: #181821;
+    color: #fff;
+    padding-bottom: 30px;
+}
+
+.container-footer {
+    margin: 0 100px 0 100px;
+}
+
+.container-footer p {
+    color: #a9b3bb;
+    font-size: 15px;
+}
+
+.footer-content {
+    margin-top: 15px;
+}
+
+.footer-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* ========end footer======= */
+
+
+/* ========course-detail======= */
+.detail-block-2 img {
+    width: 350px;
+    border-radius: 15px;
+}
+
+.detail-block-2 span,
+.description,
+.course-info span {
+    font-size: 13px;
+}
+
+.lecture {
+    border-radius: 10px;
+    width: 785px;
+    height: 50px;
+    background-color: #f5f5f5;
+}
+
+.btn-course-register {
+    width: 180px;
+    height: 40px;
+    background-color: #ff681c;
+    border: none;
+
+    border-radius: 30px;
+
+}
+
+.btn-course-register a {
+    font-size: 15px;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* ======== end course-detail======= */
+
+/* ======== form login======= */
+.auth {
+    padding: 30px;
+    width: 400px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 1px 2px 8px 8px #ccc3;
+}
+
+.data-input input {
+    width: 250px;
+}
+
+.login {
+    background-color: #ff681c;
+    border: none;
+    width: 120px;
+    color: #fff;
+}
+
+.login:hover {
+    color: #fff;
+}
+
+.forgot {
+    color: #ff681c;
+    text-decoration: none;
+}
+
+.forgot:hover {
+    color: #ff681c;
+    text-decoration: underline;
+}
+
+/* ======== end form login======= */
+
+/* ======== menu user ======= */
+#showButton {
+
+    position: relative;
+}
+
+#showButton:hover {
+    cursor: pointer;
+}
+
+#categoryList li {
+    list-style: none;
+    margin: 5px 0 10px 0;
+}
+
+#categoryList a {
+    font-size: 14px;
+    color: #666;
+}
+
+#categoryList a:hover {
+    font-size: 14px;
+    color: #000;
+}
+
+#categoryList {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 39px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 -4px 32px rgba(0, 0, 0, .2);
+    padding: 10px 20px 10px 20px;
+    width: 210px;
+}
+
+#showButton img {
+    width: 35px;
+    border-radius: 30px;
+}
+
+/* ======== end menu user======= */
+
+/* ======== list my course======= */
+#courseList {
+    position: absolute;
+    top: 60px;
+    right: 95px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 -4px 32px rgba(0, 0, 0, .2);
+    padding: 10px 20px 10px 20px;
+    width: 400px;
+    min-height: 130px;
+    display: none;
+}
+
+#courseList img {
+    width: 130px;
+}
+
+.course-title-list {
+    font-size: 15px;
+    color: #000;
+}
+
+.course-component-list {
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.course-component-list img {
+    border-radius: 10px;
+}
+
+.course-component-list:hover {
+    background-color: #e7ebed;
+
+}
+
+#showCourse {
+    font-size: 14px;
+    font-weight: bold;
+}
+#showCourse:hover{
+    cursor: pointer;
+}
+
+/* ======== list my course======= */

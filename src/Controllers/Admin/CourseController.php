@@ -6,6 +6,7 @@ use EzCode\Commons\Controller;
 use EzCode\Models\Category;
 use EzCode\Models\Course;
 use EzCode\Models\CourseCategory;
+use EzCode\Models\Lecture;
 
 class CourseController extends Controller
 {
@@ -22,12 +23,12 @@ class CourseController extends Controller
     function create()
     {
         $data['categories'] = (new Category())->getAll();
-        if (isset($_POST['btn-add'])) {
+        if (!empty($_POST)) {
             $courseName     = $_POST['course_name'];
             $courseCode     = substr(rand(0, 9999), 0, 6);
             $price          = $_POST['price'];
             $description    = $_POST['description'];
-            $category_id    = $_POST['category_id'];
+            $category_id    = $_POST['category_id'] ?? null;
             $discount       = $_POST['discount'];
 
             $image          = $_FILES['image'] ?? null;
@@ -39,16 +40,20 @@ class CourseController extends Controller
                     $imagePath = null;
                 }
             }
-            (new Course())->insert(
-                $courseName,
-                $description,
-                $price,
-                $discount,
-                $imagePath,
-                $courseCode);
-            (new CourseCategory())->insert($courseCode, $category_id);
 
-            header("location:" . route('/admin/courses'));
+            if(empty($courseName) || empty($price) || empty($category_id) || empty($description) || empty($imagePath)){
+                $_SESSION['error'] = "Vui lòng điền đủ thông tin";
+            }else{
+                (new Course())->insert(
+                    $courseName,
+                    $description,
+                    $price,
+                    $discount,
+                    $imagePath,
+                    $courseCode);
+                (new CourseCategory())->insert($courseCode, $category_id);
+                $_SESSION['success'] = "Thao tác thành công";
+            }
         }
         $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
     }
@@ -60,7 +65,7 @@ class CourseController extends Controller
         $data['course_categories']  = (new CourseCategory())->getAll();
         $data['categories']         = (new Category())->getAll();
 
-        if (isset($_POST['btn-update'])) {
+        if (!empty($_POST)) {
             $courseName             = $_POST['course_name'];
             $price                  = $_POST['price'];
             $description            = $_POST['description'];
@@ -68,34 +73,38 @@ class CourseController extends Controller
             $discount               = $_POST['discount'];
 
             $image                  = $_FILES['image'] ?? null;
-            $imagePath              = $data['post']['p_image'];
+            $imagePath              = $data['courses']['image'] ;
             $move                   = false;
             if ($image) {
                 $imagePath = self::PATH_UPLOAD . time() . $image['name'];
 
                 if (!move_uploaded_file($image['tmp_name'], PATH_ROOT . $imagePath)) {
-                    $imagePath = $data['post']['p_image'];
+                    $imagePath = $data['courses']['image'];
                 } else {
                     $move = true;
                 }
             }
-            (new Course())->update(
-                $courseName,
-                $description,
-                $price, $discount,
-                $imagePath,
-                $id
-            );
-            (new CourseCategory())->updateCourseCategory($id, $category_id);
+            if(empty($courseName) || empty($price) || empty($category_id) || empty($description)){
+                $_SESSION['error'] = "Vui lòng điền đủ thông tin";
+            }else {
+                (new Course())->update(
+                    $courseName,
+                    $description,
+                    $price, $discount,
+                    $imagePath,
+                    $id
+                );
+                (new CourseCategory())->updateCourseCategory($id, $category_id);
 
-            if (
-                $move
-                && $data['courses']['image']
-                && file_exists(PATH_ROOT . $data['courses']['image'])
-            ) {
-                unlink(PATH_ROOT . $data['courses']['image']);
+                if (
+                    $move
+                    && $data['courses']['image']
+                    && file_exists(PATH_ROOT . $data['courses']['image'])
+                ) {
+                    unlink(PATH_ROOT . $data['courses']['image']);
+                }
+                $_SESSION['success'] = "Thao tác thành công";
             }
-            header("location:" . route('/admin/courses'));
         }
         $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
     }
@@ -105,10 +114,12 @@ class CourseController extends Controller
         $course = (new Course())->getById($courseCode);
         (new Course())->delete($courseCode);
         (new CourseCategory())->deleteByCode($courseCode);
+        (new Lecture())->deleteCode($courseCode);
 
         if ($course['image'] && file_exists(PATH_ROOT . $course['image'])) {
             unlink(PATH_ROOT . $course['image']);
         }
+        $_SESSION['success'] = "Thao tác thành công";
         header("location:" . route('/admin/courses'));
     }
 

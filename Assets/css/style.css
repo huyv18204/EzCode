@@ -269,6 +269,10 @@
     position: relative;
 }
 
+#showButton:hover {
+    cursor: pointer;
+}
+
 #categoryList li {
     list-style: none;
     margin: 5px 0 10px 0;
@@ -313,7 +317,7 @@
     box-shadow: 0 -4px 32px rgba(0, 0, 0, .2);
     padding: 10px 20px 10px 20px;
     width: 400px;
-    min-height: 150px;
+    min-height: 130px;
     display: none;
 }
 
@@ -322,12 +326,16 @@
 }
 
 .course-title-list {
-    font-size: 17px;
+    font-size: 15px;
     color: #000;
 }
 
 .course-component-list {
-    padding: 10px;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.course-component-list img {
     border-radius: 10px;
 }
 
@@ -339,6 +347,9 @@
 #showCourse {
     font-size: 14px;
     font-weight: bold;
+}
+#showCourse:hover{
+    cursor: pointer;
 }
 
 /* ======== list my course======= */

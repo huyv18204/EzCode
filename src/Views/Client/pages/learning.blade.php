@@ -18,8 +18,8 @@
     <div class="menu d-flex align-items-center">
         <a href="{{route('/detail/'.$course['course_code'])}}">
             <i class='fa fa-angle-left ms-4' aria-hidden='true'></i>
+            <img class="ms-3" src="{{route('/assets/imgs/EZ.png')}}" alt="">
         </a>
-        <img class="ms-4" src="{{route('/assets/imgs/f8-icon.18cd71cfcfa33566a22b.png')}}" alt="">
         <span class="ms-3">{{$course['name']}}</span>
     </div>
     <div class="course-video row gx-0">

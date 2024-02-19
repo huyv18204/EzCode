@@ -100,6 +100,19 @@ class Lecture extends Model
         $this->execute($query, false, $params);
     }
 
+    function deleteCode($course_code)
+    {
+        $query = "
+                    DELETE 
+                    FROM {$this->tableName} 
+                    WHERE course_code = :course_code 
+                ";
+        $params = array(
+            ':course_code'  => $course_code
+        );
+        $this->execute($query, false, $params);
+    }
+
     function count($course_code){
         $query = "
                     SELECT COUNT(*) AS count_lecture

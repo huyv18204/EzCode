@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
     function create()
     {
-        if (isset($_POST['btn-add'])) {
+        if (!empty($_POST)) {
             $courseName     = $_POST['course_name'];
             $description    = $_POST['description'];
 
@@ -31,11 +31,17 @@ class CategoryController extends Controller
                     $imagePath = null;
                 }
             }
-            (new Category())->insert(
-                $courseName,
-                $description,
-                $imagePath);
-            header("location:" . route('/admin/categories'));
+
+            if(empty($courseName) || empty($description) || empty($imagePath)){
+                $_SESSION['error'] = "Vui lòng điền đủ thông tin";
+            }else{
+                (new Category())->insert(
+                    $courseName,
+                    $description,
+                    $imagePath);
+                $_SESSION['success'] = "Thêm danh mục thành công";
+            }
+
         }
 
         $this->renderViewsAdmin($this->folder . __FUNCTION__);
@@ -45,7 +51,7 @@ class CategoryController extends Controller
     function update($id)
     {
         $data['category']   = (new Category())->getById($id);
-        if (isset($_POST['btn-edit'])) {
+        if (!empty($_POST)) {
             $courseName     = $_POST['course_name'];
             $description    = $_POST['description'];
 
@@ -62,20 +68,27 @@ class CategoryController extends Controller
                 }
             }
 
-            (new Category())->update(
-                $courseName,
-                $description,
-                $imagePath,
-                $id);
 
-            if (
-                $move
-                && $data['category']['image']
-                && file_exists(PATH_ROOT . $data['category']['image'])
-            ) {
-                unlink(PATH_ROOT . $data['category']['image']);
+            if(empty($courseName) || empty($description) || empty($imagePath)){
+                $_SESSION['error'] = "Vui lòng điền đủ thông tin";
+            }else{
+                (new Category())->update(
+                    $courseName,
+                    $description,
+                    $imagePath,
+                    $id
+                );
+
+                if (
+                    $move
+                    && $data['category']['image']
+                    && file_exists(PATH_ROOT . $data['category']['image'])
+                ) {
+                    unlink(PATH_ROOT . $data['category']['image']);
+                }
+                $_SESSION['success'] = "Cập nhật danh mục thành công";
             }
-            header("location:" . route('/admin/categories'));
+
         }
         $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
     }
@@ -88,6 +101,7 @@ class CategoryController extends Controller
         if ($category['image'] && file_exists(PATH_ROOT . $category['image'])) {
             unlink(PATH_ROOT . $category['image']);
         }
+        $_SESSION['success'] = "Xoá danh mục thành công";
         header("location:" . route('/admin/categories'));
     }
 }

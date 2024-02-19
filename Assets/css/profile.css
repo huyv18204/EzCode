@@ -4,7 +4,7 @@
     position: fixed;
 }
 
-.menu > img {
+.menu img {
     width: 42px;
     border-radius: 5px;
 }
@@ -22,6 +22,7 @@
 
 .profile {
     width: 1100px;
+    padding-bottom: 100px;
 }
 
 .cover-profile {
@@ -64,4 +65,17 @@
     min-height: 90px;
     border-radius: 10px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, .1), 0 0 1px 0 rgba(0, 0, 0, .1);
+}
+
+.course-component-list {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.course-component-list img{
+    border-radius: 10px;
+}
+
+.course-component-list:hover {
+    background-color: #e7ebed;
 }

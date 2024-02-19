@@ -21,6 +21,7 @@ class UserController extends Controller
     function update($id, $status)
     {
         (new User())->update($id, $status);
+        $_SESSION['success'] = "Thao tác thành công";
         header("Location: " . route('/admin/users'));
     }
 }

@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+    Quản lí người dùng
+@endsection
 @section('content')
     <main>
         <div class="head-title">

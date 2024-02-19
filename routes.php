@@ -12,6 +12,8 @@ use EzCode\Controllers\Client\DetailController;
 use EzCode\Controllers\Client\LearningController;
 use EzCode\Controllers\Client\ProfileController;
 use EzCode\Controllers\Client\OrderController;
+use EzCode\Models\Lecture;
+use EzCode\Models\Order;
 
 $router = new Router();
 $router->get('/', HomeController::class . '@home');
@@ -48,7 +50,7 @@ $router->mount('/admin', function () use ($router) {
         $router->get('/{id}/delete/{course_code}', LectureController::class . '@delete');
         $router->match('GET|POST', '/{id}/update/{course_code}', LectureController::class . '@update');
         $router->match('GET|POST', '/create/{course_code}', LectureController::class . '@create');
-        $router->get('/{code_course}', LectureController::class . '@index');
+        $router->get('/{course_code}', LectureController::class . '@index');
     });
 
     $router->get('/dashboard', DashboardController::class . '@index');
@@ -79,6 +81,14 @@ $router->before('GET|POST', '/admin/*', function () {
 
 $router->before('GET|POST', '/admin/.*', function () {
     if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 2) {
+        die("404");
+    }
+});
+
+$router->before('GET|POST', 'client/{course_code}/learning/{id}', function ($course_code, $id) {
+    $checkLecture = (new Lecture())->getByIdAndCourseCode($course_code, $id);
+    $checkCourse = (new Order())->getByIdUserAndCourseCode($_SESSION['user']['id'], $course_code);
+    if (empty($checkCourse) || empty($checkLecture)) {
         die("404");
     }
 });

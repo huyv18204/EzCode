@@ -9,6 +9,22 @@ class Order extends Model
 
     private string $tableName = 'orders';
 
+
+    function getByUserId($user_id)
+    {
+        $query = "
+                    SELECT *
+                    FROM {$this->tableName}
+                    INNER JOIN courses
+                    ON orders.course_code      = courses.course_code
+                    WHERE orders.user_id   = :user_id 
+                 ";
+        $params = array(
+            ':user_id'          => $user_id
+        );
+        return $this->execute($query, true, $params);
+    }
+
     function getByIdUserAndCourseCode($user_id,$course_code)
     {
         $query = "

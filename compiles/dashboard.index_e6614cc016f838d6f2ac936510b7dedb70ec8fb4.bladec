@@ -1,4 +1,7 @@
 <?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('title'); ?>
+	Bảng điều khiển
+<?php $this->stopSection(); ?>
 <?php $this->startSection('content'); ?>
 	<main>
  <div class="head-title">
@@ -14,10 +17,6 @@
  </li>
  </ul>
  </div>
- <a href="#" class="btn-download">
- <i class='bx bxs-cloud-download'></i>
- <span class="text">Download PDF</span>
- </a>
  </div>
 
  <ul class="box-info">

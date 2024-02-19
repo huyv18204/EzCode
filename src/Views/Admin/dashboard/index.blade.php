@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+	Bảng điều khiển
+@endsection
 @section('content')
 	<main>
 		<div class="head-title">
@@ -14,10 +17,6 @@
 					</li>
 				</ul>
 			</div>
-			<a href="#" class="btn-download">
-				<i class='bx bxs-cloud-download'></i>
-				<span class="text">Download PDF</span>
-			</a>
 		</div>
 
 		<ul class="box-info">

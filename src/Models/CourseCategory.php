@@ -69,7 +69,7 @@ class CourseCategory extends Model
     function updateCourseCategory($courseCode, $selectedCategoryIds)
     {
         $currentCategoryIds = CourseCategory::getByCode($courseCode);
-        if (is_array($currentCategoryIds) && is_array($selectedCategoryIds)) {
+        if (!empty($selectedCategoryIds)){
             $deletedCategoryIds = array_diff($currentCategoryIds, $selectedCategoryIds);
             if (!empty($deletedCategoryIds)) {
                 foreach ($deletedCategoryIds as $categoryId) {
@@ -81,6 +81,7 @@ class CourseCategory extends Model
             if (!empty($newCategoryIds)) {
                 foreach ($newCategoryIds as $categoryId) {
                     $array = explode(', ', $categoryId);
+
                     CourseCategory::insert($courseCode, $array);
                 }
             }

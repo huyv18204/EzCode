@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Trang cá nhân</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -18,7 +18,7 @@
 <body>
 <div class="wrapper">
     <div class="menu d-flex align-items-center ms-3">
-        <img src="{{route('/assets/imgs/f8-icon.18cd71cfcfa33566a22b.png')}}" alt="">
+        <a href="{{route('/')}}"><img src="{{route('/assets/imgs/EZ.png')}}" alt=""></a>
         <div class=" comeback ms-3">
             <i class='fa fa-angle-left' aria-hidden='true'></i>
             <span class=""><a href="{{route('/')}}">Quay lại</a></span>
@@ -26,8 +26,12 @@
     </div>
     <div class="profile m-auto">
         <div class="cover-profile ">
-            <img src="{{route('/assets/imgs/f8-icon.18cd71cfcfa33566a22b.png')}}" alt="">
-            <div>Quốc Huy</div>
+            @if(empty($_SESSION['user']['image']))
+                <img src="{{route('/assets/imgs/user.png')}}" alt="">
+            @else
+                <img src="{{route($_SESSION['user']['image'])}}" alt="">
+            @endif
+            <div>{{$_SESSION['user']['name']}}</div>
         </div>
 
         <div class="profile-content row gx-5">
@@ -52,34 +56,23 @@
             <div class="col-7 block-1">
                 <div class="ms-1 pt-3 me-3">
                     <span class="fw-bold">Các khoá học đã tham gia</span>
-                    <div class="d-flex mt-4">
-                        <div><img src="{{route('/assets/imgs/62f13d2424a47.png')}}" alt=""></div>
-                        <div>
-                            <span class="fw-bold ms-3">Node & ExpressJS</span>
-                            <p class="ms-3 mt-2">Học Back-end với Node & ExpressJS framework, hiểu các khái niệm khi
-                                làm
-                                Back-end và
-                                xây
-                                dựng
-                                RESTful API cho trang web.
-
-                            </p>
+                    @if(!empty($course_orders))
+                    @foreach($course_orders as $course_order)
+                        <a class="text-decoration-none text-reset" href="{{route('/detail/'.$course_order['course_code'])}}">
+                            <div class="d-flex mb-3 mt-3 course-component-list">
+                                <div><img src="{{route($course_order['image'])}}" alt=""></div>
+                                <div>
+                                    <span class="fw-bold ms-3">{{$course_order['name']}}</span>
+                                    <p class="ms-3 mt-2">{{$course_order['description']}}</p>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                    @else
+                        <div class="d-flex align-items-center mt-5 justify-content-center">
+                            <span>Bạn chưa tham gia khoá học nào.</span>
                         </div>
-                    </div>
-                    <div class="d-flex mt-4">
-                        <div><img src="{{route('/assets/imgs/62f13d2424a47.png')}}" alt=""></div>
-                        <div>
-                            <span class="fw-bold ms-3">Lập Trình JavaScript Nâng Cao</span>
-                            <p class="ms-3 ms-2">Hiểu sâu hơn về cách Javascript hoạt động, tìm hiểu về IIFE,
-                                closure,
-                                reference
-                                types,
-                                this
-                                keyword, bind, call, apply, prototype, ...
-                            </p>
-                        </div>
-
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

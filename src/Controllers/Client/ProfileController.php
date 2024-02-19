@@ -3,6 +3,7 @@
 namespace EzCode\Controllers\Client;
 
 use EzCode\Commons\Controller;
+use EzCode\Models\Order;
 
 class ProfileController extends Controller
 {
@@ -11,6 +12,9 @@ class ProfileController extends Controller
     function profile()
 
     {
-        $this->renderViewsClient($this->folder . __FUNCTION__);
+        if(!empty($_SESSION['user'])){
+            $data['course_orders']  = (new Order())->getByUserId($_SESSION['user']['id']);
+        }
+        $this->renderViewsClient($this->folder . __FUNCTION__,$data);
     }
 }

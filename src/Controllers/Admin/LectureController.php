@@ -28,9 +28,12 @@ class LectureController extends Controller
             $lectureName    =   $_POST['lecture_name'];
             $url            =   $_POST['url'];
 
-            (new Lecture())->insert($lectureName, $url, $course_code);
-
-            header("Location:" . route('/admin/lectures/' . $course_code));
+            if(empty($lectureName) || empty($url)){
+                $_SESSION['error'] = "Thao tác thất bại";
+            }else{
+                (new Lecture())->insert($lectureName, $url, $course_code);
+                $_SESSION['success'] = "Thao thành công";
+            }
         }
         $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
     }
@@ -45,9 +48,12 @@ class LectureController extends Controller
             $lectureName        =  $_POST['lecture_name'];
             $url                =  $_POST['url'];
 
-            (new Lecture())->update($lectureName, $url, $course_code, $id);
-
-            header("Location:" . route('/admin/lectures/' . $course_code));
+            if(empty($lectureName) || empty($url)){
+                $_SESSION['error'] = "Thao tác thất bại";
+            }else{
+                (new Lecture())->update($lectureName, $url, $course_code, $id);
+                $_SESSION['success'] = "Thao thành công";
+            }
         }
         $this->renderViewsAdmin($this->folder . __FUNCTION__, $data);
     }
@@ -55,7 +61,7 @@ class LectureController extends Controller
     function delete($id, $course_code)
     {
         (new Lecture())->delete($course_code, $id);
-
+        $_SESSION['success'] = "Thao thành công";
         header("Location:" . route('/admin/lectures/' . $course_code));
     }
 

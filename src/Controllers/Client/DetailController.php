@@ -15,7 +15,10 @@ class DetailController extends Controller
     function detail($course_code)
 
     {
-        $data['order']          = (new Order())->getByIdUserAndCourseCode($_SESSION['user']['id'], $course_code);
+        if(!empty($_SESSION['user'])){
+            $data['course_orders']  = (new Order())->getByUserId($_SESSION['user']['id']);
+            $data['order']          = (new Order())->getByIdUserAndCourseCode($_SESSION['user']['id'], $course_code);
+        }
         $data['course']         = (new Course())->getById($course_code);
         $data['count_lecture']  = (new Lecture())->count($course_code);
         $data['lectures']       = (new Lecture())->getById($course_code);

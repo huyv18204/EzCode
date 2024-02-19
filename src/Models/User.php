@@ -13,6 +13,15 @@ class User extends Model
         return $this->execute("SELECT * FROM {$this->tableName}");
     }
 
+    function getByEmail($email)
+    {
+        $query = "SELECT * FROM {$this->tableName} WHERE email = :email";
+        $params = array(
+            ':email'        => $email
+        );
+        return $this->execute($query, false, $params);
+    }
+
     function insert($email, $password, $name, $status = 1, $role = 1)
     {
         $query = "

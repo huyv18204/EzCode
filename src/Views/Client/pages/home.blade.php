@@ -26,7 +26,7 @@
             <div class="search">
                 <div class="search-component d-flex justify-content-start align-items-center">
                     <i class="ms-3 fa-solid fa-magnifying-glass fa-lg" style="color: #bec0c1;"></i>
-                    <input type="text" class="ms-2" placeholder="Tìm kiếm khoá học...">
+                        <input id="search" type="text" class="ms-2" placeholder="Tìm kiếm khoá học...">
                 </div>
             </div>
             <div class=" me-5 d-flex justify-content-center align-items-center btn-function">
@@ -138,10 +138,10 @@
                             <span class="course-title fw-bold">{{$category['name']}}</span>
                         </div>
 
-                        <div class="course-component row gx-4 mt-4">
+                        <div class="course-component row justify-content-start gx-4">
                             @foreach($courses as $course)
                                 @if($category['id'] == $course['category_id'])
-                                    <div class="course col-3">
+                                    <div class="course col-3 mt-4">
                                         <a href="{{route('/detail/'.$course['course_code'])}}"><img
                                                     src="{{route($course['image'])}}"
                                                     alt=""></a>

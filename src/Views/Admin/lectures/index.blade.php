@@ -40,9 +40,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($lectures as $lecture)
+                    @foreach ($lectures as $key => $lecture)
                         <tr>
-                            <td>{{$lecture['id']}}</td>
+                            <td>{{$key + 1}}</td>
                             <td>{{$lecture['name']}}</td>
                             <td>{{$lecture['url']}}</td>
                             <th style="width: 150px">

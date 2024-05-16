@@ -8,10 +8,14 @@
     <!-- Boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- My CSS -->
+{{--    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>--}}
+{{--    <script src="https://www.gstatic.com/charts/loader.js"></script>--}}
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>--}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{route('/assets/css/admin.css')}}">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <title>@yield('title')</title>
 </head>
 

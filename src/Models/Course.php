@@ -11,7 +11,7 @@ class Course extends Model
     function getAll()
     {
 
-        return $this->execute("SELECT * FROM {$this->tableName}");
+        return $this->execute("SELECT * FROM {$this->tableName} order by id desc");
     }
 
     function getById($course_code)
@@ -93,5 +93,18 @@ class Course extends Model
                     ON {$this->tableName}.course_code 
                     = course_categories.course_code
                 ");
+    }
+
+    public function search($name){
+        $query = "
+                SELECT * 
+                FROM {$this->tableName} 
+                WHERE name LIKE CONCAT('%',:name, '%');
+                 ";
+
+        $params = array(
+            ':name' => $name
+        );
+        $this->execute($query, true, $params);
     }
 }

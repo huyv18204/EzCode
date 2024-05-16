@@ -50,6 +50,7 @@
                             <label for="exampleFormControlInput1" class="form-label">Ảnh</label>
                             <input name="image" type="file" class="form-control" id="exampleFormControlInput1"
                                    placeholder="name@example.com">
+                            <img class="mt-4" style="width: 100px" src="{{route($courses['image'])}}" alt="">
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Danh mục</label>

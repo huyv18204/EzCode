@@ -6,16 +6,16 @@
 	<main>
 		<div class="head-title">
 			<div class="left">
-				<h1>Dashboard</h1>
-				<ul class="breadcrumb">
-					<li>
-						<a href="">Dashboard</a>
-					</li>
-					<li><i class='bx bx-chevron-right'></i></li>
-					<li>
-						<a class="active" href="#">Home</a>
-					</li>
-				</ul>
+				<h1>Bảng điều khiển</h1>
+{{--				<ul class="breadcrumb">--}}
+{{--					<li>--}}
+{{--						<a href="">Bảng điều khiển</a>--}}
+{{--					</li>--}}
+{{--					<li><i class='bx bx-chevron-right'></i></li>--}}
+{{--					<li>--}}
+{{--						<a class="active" href="#">Bảng điều khiển</a>--}}
+{{--					</li>--}}
+{{--				</ul>--}}
 			</div>
 		</div>
 
@@ -23,22 +23,22 @@
 			<li>
 				<i class='bx bxs-calendar-check'></i>
 				<span class="text">
-						<h3>1020</h3>
-						<p>New Order</p>
+						<h3>{{$countOrder["count"]}}</h3>
+						<p>Đơn hàng</p>
 					</span>
 			</li>
 			<li>
 				<i class='bx bxs-group'></i>
 				<span class="text">
-						<h3>2834</h3>
-						<p>Visitors</p>
+						<h3>{{$countUser["count"]}}</h3>
+						<p>Khách hàng</p>
 					</span>
 			</li>
 			<li>
 				<i class='bx bxs-dollar-circle'></i>
 				<span class="text">
-						<h3>$2543</h3>
-						<p>Total Sales</p>
+						<h3>${{$sumSales['sum']}}</h3>
+						<p>Doanh số</p>
 					</span>
 			</li>
 		</ul>
@@ -47,91 +47,74 @@
 		<div class="table-data">
 			<div class="order">
 				<div class="head">
-					<h3>Recent Orders</h3>
+					<h3>Đặt hàng gần đây</h3>
 					<i class='bx bx-search'></i>
 					<i class='bx bx-filter'></i>
 				</div>
 				<table>
 					<thead>
 					<tr>
-						<th>User</th>
-						<th>Date Order</th>
-						<th>Status</th>
+						<th>Khách hàng</th>
+						<th>Ngày đặt</th>
+						<th>Trạng thái</th>
 					</tr>
 					</thead>
 					<tbody>
-					<tr>
-						<td>
-							<img src="../../../assets/imgs/people.png">
-							<p>John Doe</p>
-						</td>
-						<td>01-10-2021</td>
-						<td><span class="status completed">Completed</span></td>
-					</tr>
-					<tr>
-						<td>
-							<img src="../../../assets/imgs/people.png">
-							<p>John Doe</p>
-						</td>
-						<td>01-10-2021</td>
-						<td><span class="status pending">Pending</span></td>
-					</tr>
-					<tr>
-						<td>
-							<img src="../../../assets/imgs/people.png">
-							<p>John Doe</p>
-						</td>
-						<td>01-10-2021</td>
-						<td><span class="status process">Process</span></td>
-					</tr>
-					<tr>
-						<td>
-							<img src="../../../assets/imgs/people.png">
-							<p>John Doe</p>
-						</td>
-						<td>01-10-2021</td>
-						<td><span class="status pending">Pending</span></td>
-					</tr>
-					<tr>
-						<td>
-							<img src="../../../assets/imgs/people.png">
-							<p>John Doe</p>
-						</td>
-						<td>01-10-2021</td>
-						<td><span class="status completed">Completed</span></td>
-					</tr>
+					@foreach($orders as $order)
+						<tr>
+							<td>
+								<img src="{{route("/assets/imgs/user.png")}}">
+								<p>{{$order['name']}}</p>
+							</td>
+							<td>{{$order['order_date']}}</td>
+							<td><span class="status completed">Hoàn thành</span></td>
+						</tr>
+					@endforeach
+
 					</tbody>
 				</table>
 			</div>
 			<div class="todo">
 				<div class="head">
-					<h3>Todos</h3>
+					<h3>Đơn hàng theo khoá học</h3>
 					<i class='bx bx-plus'></i>
 					<i class='bx bx-filter'></i>
 				</div>
-				<ul class="todo-list">
-					<li class="completed">
-						<p>Todo List</p>
-						<i class='bx bx-dots-vertical-rounded'></i>
-					</li>
-					<li class="completed">
-						<p>Todo List</p>
-						<i class='bx bx-dots-vertical-rounded'></i>
-					</li>
-					<li class="not-completed">
-						<p>Todo List</p>
-						<i class='bx bx-dots-vertical-rounded'></i>
-					</li>
-					<li class="completed">
-						<p>Todo List</p>
-						<i class='bx bx-dots-vertical-rounded'></i>
-					</li>
-					<li class="not-completed">
-						<p>Todo List</p>
-						<i class='bx bx-dots-vertical-rounded'></i>
-					</li>
-				</ul>
+				<div>
+					<canvas id="myChart"></canvas>
+				</div>
 			</div>
 		</div>
 	</main>
+    @php
+        // Gán dữ liệu PHP vào biến JavaScript
+        $js_array = json_encode($statistical);
+    @endphp
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+
+        const myArray = {!! $js_array !!};
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: myArray.map((item)=> item.name),
+                datasets: [{
+                    label: 'Số lượng',
+                    data: myArray.map((item)=> item.count),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
 @endsection

@@ -29,6 +29,7 @@
                 <table>
                     <thead>
                     <tr>
+                        <th>STT</th>
                         <th>Tên</th>
                         <th>Email</th>
                         <th>Vai trò</th>
@@ -38,8 +39,9 @@
                     </thead>
                     <tbody>
 
-                    @foreach ($users as $user)
+                    @foreach ($users as $key => $user)
                         <tr>
+                            <td>{{$key + 1}}</td>
                             <td>
                                 {{ $user['name'] }}
                             </td>
@@ -49,11 +51,13 @@
                                 <span class="status completed">{{ $user['status'] == 1 ? "Kích hoạt" : "Chưa kích hoạt" }}</span>
                             </td>
                             <td>
+                                @if( $user['role'] == 1)
                                 <button class="btn btn-danger">
                                     <a href="{{ route('/admin/users/'.$user['id'] .'/update/'.$user['status']) }}">
                                         {{ $user['status'] == 1 ? "Vô hiệu hoá" : "Kích hoạt" }}
                                     </a>
                                 </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

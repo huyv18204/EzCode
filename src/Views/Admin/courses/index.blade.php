@@ -33,7 +33,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>Mã Khoá Học</th>
+                        <th>STT</th>
                         <th>Tên Khoá Học</th>
                         <th>Ảnh</th>
                         <th>Danh Mục</th>
@@ -43,9 +43,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($courses as $course)
+                    @foreach ($courses as $key => $course)
                         <tr>
-                            <td> {{ $course['course_code'] }}</td>
+                            <td>{{$key + 1}}</td>
                             <td>{{ $course['name'] }}</td>
                             <td><img src="{{route($course['image'])}}" alt=""></td>
                             <td>

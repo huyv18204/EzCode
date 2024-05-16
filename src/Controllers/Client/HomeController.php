@@ -7,6 +7,7 @@ use EzCode\Models\Category;
 use EzCode\Models\Course;
 use EzCode\Models\CourseCategory;
 use EzCode\Models\Order;
+use http\Client\Response;
 
 class HomeController extends Controller
 {
@@ -23,3 +24,5 @@ class HomeController extends Controller
     }
 
 }
+
+

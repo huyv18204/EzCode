@@ -10,7 +10,7 @@ class User extends Model
 
     function getAll()
     {
-        return $this->execute("SELECT * FROM {$this->tableName}");
+        return $this->execute("SELECT * FROM {$this->tableName} order by id desc");
     }
 
     function getByEmail($email)
@@ -68,5 +68,15 @@ class User extends Model
         return $this->execute($query, false, $params);
     }
 
-
+    public  function countUser(){
+        $query = "      
+                    SELECT COUNT(*) as count
+                    FROM $this->tableName
+                    WHERE role != :role
+                 ";
+        $params = array(
+            ':role'        => 2,
+        );
+        return $this->execute($query, false, $params);
+    }
 }

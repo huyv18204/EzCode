@@ -56,27 +56,34 @@
                         @endif
 
             </div>
-            @if(empty($_SESSION['user']['image']))
-                <div id="showButton" href="" class="text-reset ms-4"><img src="{{route('/assets/imgs/user.png')}}"
-                                                                          alt=""></div>
-                <div id="categoryList">
-                    <li><a href="{{route('/client/profile')}}">Trang cá nhân</a></li>
-                    <li><a href="">Cài Đặt</a></li>
-                    <li><a href="{{route('/client/logout')}}">Đăng Xuất</a></li>
-                </div>
-            @else
-                <div id="showButton" href="" class="text-reset ms-4"><img src="{{$_SESSION['user']['image']}}" alt="">
-                </div>
-                <div id="categoryList">
-                    <li><a href="{{route('/client/profile')}}">Trang cá nhân</a></li>
-                    <li><a href="">Cài Đặt</a></li>
-                    <li><a href="{{route('/client/logout')}}">Đăng Xuất</a></li>
-                </div>
-            @endif
-            @else
-                <a href=" {{ route('/auth/login')}}" class="text-reset">Đăng nhập</a>
-                <a class="d-flex justify-content-center align-items-center ms-3 btn-register"
-                   href="{{ route('/auth/register')}}">Đăng kí</a>
+                    @if(empty($_SESSION['user']['image']))
+                        <div id="showButton" class="text-reset ms-4">
+                            <img src="{{route('/assets/imgs/user.png')}}" alt="">
+                        </div>
+                        <div id="categoryList">
+                            @if($_SESSION['user']['role'] == 2)
+                                <li><a href="{{route('/admin/dashboard')}}">Quản lí trang web</a></li>
+                            @endif
+                            <li><a href="{{route('/client/profile')}}">Trang cá nhân</a></li>
+                            <li><a href="">Cài Đặt</a></li>
+                            <li><a href="{{route('/client/logout')}}">Đăng Xuất</a></li>
+                        </div>
+                    @else
+                        <div id="showButton" class="text-reset ms-4"><img src="{{$_SESSION['user']['image']}}" alt="">
+                        </div>
+                        <div id="categoryList">
+                            @if($_SESSION['user']['role'] == 2)
+                                <li><a href="{{route('/admin/dashboard')}}">Quản lí trang web</a></li>
+                            @endif
+                            <li><a href="{{route('/client/profile')}}">Trang cá nhân</a></li>
+                            <li><a href="">Cài Đặt</a></li>
+                            <li><a href="{{route('/client/logout')}}">Đăng Xuất</a></li>
+                        </div>
+                    @endif
+                @else
+                    <a href=" {{ route('/auth/login')}}" class="text-reset">Đăng nhập</a>
+                    <a class="d-flex justify-content-center align-items-center ms-3 btn-register"
+                       href="{{ route('/auth/register')}}">Đăng kí</a>
             @endif
         </header>
     </div>

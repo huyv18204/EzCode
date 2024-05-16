@@ -33,14 +33,16 @@
                 <table>
                     <thead>
                     <tr>
+                        <th>STT</th>
                         <th>Tên Danh Mục</th>
                         <th>Ảnh</th>
                         <th>Chức Năng</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($categories as $category)
+                    @foreach ($categories as $key => $category)
                         <tr>
+                            <td>{{$key + 1}}</td>
                             <td>
                                 <p>{{ $category['name'] }}</p>
                             </td>

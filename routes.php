@@ -85,7 +85,8 @@ $router->before('GET|POST', '/admin/.*', function () {
     }
 });
 
-$router->before('GET|POST', 'client/{course_code}/learning/{id}', function ($course_code, $id) {
+
+$router->before('GET|POST', '/client/{course_code}/learning/{id}', function ($course_code, $id) {
     $checkLecture = (new Lecture())->getByIdAndCourseCode($course_code, $id);
     $checkCourse = (new Order())->getByIdUserAndCourseCode($_SESSION['user']['id'], $course_code);
     if (empty($checkCourse) || empty($checkLecture)) {
